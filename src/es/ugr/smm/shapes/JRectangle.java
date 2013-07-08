@@ -135,7 +135,8 @@ public class JRectangle extends Rectangle2D.Float implements FillableShape {
                     10.0f, JShape.dash1, 0.0f));
         }
         g2d.setPaint(this.paintColor);
-        g2d.draw(this);
+        if(!isFilled) g2d.draw(this);
+        else g2d.fill(this);
 
     }
 }

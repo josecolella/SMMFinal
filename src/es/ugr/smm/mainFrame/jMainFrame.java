@@ -10,6 +10,7 @@ import es.ugr.smm.internalWindow.VentanaInternaJMFPlayer;
 import es.ugr.smm.internalWindow.jImageInternalWindow;
 import es.ugr.smm.optionPane.jMultipleInputOptionPane;
 import es.ugr.smm.shapes.Shapes;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -32,9 +33,11 @@ import javax.media.control.FrameGrabbingControl;
 import javax.media.format.VideoFormat;
 import javax.media.util.BufferToImage;
 import javax.swing.ImageIcon;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -45,6 +48,8 @@ import javax.swing.JOptionPane;
 public class jMainFrame extends javax.swing.JFrame {
 
     private BufferedImage imgSource;
+    private Color strokeColor;
+    private Color fillColor;
 
     /**
      * Creates new form jMainFrame
@@ -64,9 +69,6 @@ public class jMainFrame extends javax.swing.JFrame {
         //this.jTabbedPane.addTab("Operaciones sobre Imágenes", imageIcon, jImageManipulationPanel, "Operaciones para manipular imágenes");
         this.jContinuityButton.setSelected(true);
         this.jNoFillRadioButton.setSelected(true);
-
-
-
     }
 
     /**
@@ -78,18 +80,16 @@ public class jMainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jConitnuityGroup = new javax.swing.ButtonGroup();
+        jContinuityGroup = new javax.swing.ButtonGroup();
         jFillButtonGroup = new javax.swing.ButtonGroup();
         jShapePaintGroup = new javax.swing.ButtonGroup();
         jColorPaletteGroup = new javax.swing.ButtonGroup();
         jAttributesPanel = new javax.swing.JPanel();
         jColorPanel = new javax.swing.JPanel();
-        jBlackColorButton = new javax.swing.JButton();
-        jRedColorButton = new javax.swing.JButton();
-        jBlueColorButton = new javax.swing.JButton();
-        jGrayColorButton = new javax.swing.JButton();
-        jYellowColorButton = new javax.swing.JButton();
-        jGreenColorButton = new javax.swing.JButton();
+        jStrokeColorPanel = new javax.swing.JPanel();
+        jStrokeColorButton = new javax.swing.JButton();
+        jFillColorPanel = new javax.swing.JPanel();
+        jFillColorButton = new javax.swing.JButton();
         jStrokePanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jStrokeSpinner = new javax.swing.JSpinner();
@@ -99,8 +99,8 @@ public class jMainFrame extends javax.swing.JFrame {
         jPropertiesPanel = new javax.swing.JPanel();
         jFillPanel = new javax.swing.JPanel();
         jNoFillRadioButton = new javax.swing.JRadioButton();
-        jSolidFillRadioButton = new javax.swing.JRadioButton();
         jGradientFillRadioButton = new javax.swing.JRadioButton();
+        jFillSolidRadioButton = new javax.swing.JRadioButton();
         jPanel9 = new javax.swing.JPanel();
         jEditCheckBox = new javax.swing.JCheckBox();
         jShapeFormPanel = new javax.swing.JPanel();
@@ -110,6 +110,15 @@ public class jMainFrame extends javax.swing.JFrame {
         jRectangleButton = new javax.swing.JButton();
         jEllipseButton = new javax.swing.JButton();
         jFreePathButton = new javax.swing.JButton();
+        jColorChooserPanel = new javax.swing.JPanel();
+        jDefaultColorPanel = new javax.swing.JPanel();
+        jBlackColorButton = new javax.swing.JButton();
+        jRedColorButton = new javax.swing.JButton();
+        jBlueColorButton = new javax.swing.JButton();
+        jGrayColorButton = new javax.swing.JButton();
+        jYellowColorButton = new javax.swing.JButton();
+        jGreenColorButton = new javax.swing.JButton();
+        jMoreColorButton = new javax.swing.JButton();
         jCentralPanel = new javax.swing.JPanel();
         jDrawingToolBar = new javax.swing.JToolBar();
         jTabbedPane = new javax.swing.JTabbedPane();
@@ -149,122 +158,49 @@ public class jMainFrame extends javax.swing.JFrame {
         jInfoMenu = new javax.swing.JMenu();
         jAboutMenuItem = new javax.swing.JMenuItem();
 
-        jAttributesPanel.setPreferredSize(new java.awt.Dimension(600, 80));
-        jAttributesPanel.setLayout(new java.awt.GridLayout(1, 0));
+        jAttributesPanel.setPreferredSize(new java.awt.Dimension(800, 80));
+        jAttributesPanel.setLayout(new javax.swing.BoxLayout(jAttributesPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jColorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Color", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
-        jColorPanel.setPreferredSize(new java.awt.Dimension(180, 55));
-        jColorPanel.setLayout(new java.awt.GridLayout(2, 3));
+        jColorPanel.setMinimumSize(new java.awt.Dimension(50, 150));
+        jColorPanel.setPreferredSize(new java.awt.Dimension(145, 130));
+        jColorPanel.setLayout(new java.awt.GridLayout());
 
-        jBlackColorButton.setBackground(new java.awt.Color(1, 1, 1));
-        jBlackColorButton.setToolTipText("Negro");
-        jColorPaletteGroup.add(jBlackColorButton);
-        jBlackColorButton.setFocusable(true);
-        jBlackColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBlackColorButton.setMaximumSize(new java.awt.Dimension(6, 6));
-        jBlackColorButton.setMinimumSize(new java.awt.Dimension(3, 3));
-        jBlackColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
-        jBlackColorButton.setSelected(true);
-        jBlackColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBlackColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBlackColorButtonMouseClicked(evt);
-            }
-        });
-        jColorPanel.add(jBlackColorButton);
+        jStrokeColorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Color del Trazo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jStrokeColorPanel.setToolTipText("Color para dibujar la forma");
+        jStrokeColorPanel.setMinimumSize(new java.awt.Dimension(25, 75));
+        jStrokeColorPanel.setPreferredSize(new java.awt.Dimension(25, 75));
+        jStrokeColorPanel.setLayout(new java.awt.BorderLayout());
 
-        jRedColorButton.setBackground(new java.awt.Color(255, 0, 0));
-        jRedColorButton.setToolTipText("Rojo");
-        jColorPaletteGroup.add(jRedColorButton);
-        jRedColorButton.setFocusable(true);
-        jRedColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jRedColorButton.setMaximumSize(new java.awt.Dimension(6, 6));
-        jRedColorButton.setMinimumSize(new java.awt.Dimension(3, 3));
-        jRedColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
-        jRedColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jRedColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jRedColorButtonMouseClicked(evt);
-            }
-        });
-        jColorPanel.add(jRedColorButton);
-
-        jBlueColorButton.setBackground(new java.awt.Color(0, 7, 255));
-        jBlueColorButton.setToolTipText("Azul");
-        jColorPaletteGroup.add(jBlueColorButton);
-        jBlueColorButton.setFocusable(true
-        );
-        jBlueColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBlueColorButton.setMaximumSize(new java.awt.Dimension(10, 10));
-        jBlueColorButton.setMinimumSize(new java.awt.Dimension(6, 6));
-        jBlueColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
-        jBlueColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBlueColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBlueColorButtonMouseClicked(evt);
-            }
-        });
-        jColorPanel.add(jBlueColorButton);
-
-        jGrayColorButton.setBackground(new java.awt.Color(192, 192, 192));
-        jGrayColorButton.setToolTipText("Gris");
-        jColorPaletteGroup.add(jGrayColorButton);
-        jGrayColorButton.setFocusable(true
-        );
-        jGrayColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jGrayColorButton.setMaximumSize(new java.awt.Dimension(6, 6));
-        jGrayColorButton.setMinimumSize(new java.awt.Dimension(3, 3));
-        jGrayColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
-        jGrayColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jGrayColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jGrayColorButtonMouseClicked(evt);
-            }
-        });
-        jColorPanel.add(jGrayColorButton);
-
-        jYellowColorButton.setBackground(new java.awt.Color(255, 234, 0));
-        jYellowColorButton.setToolTipText("Amarillo");
-        jColorPaletteGroup.add(jYellowColorButton);
-        jYellowColorButton.setFocusable(true);
-        jYellowColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jYellowColorButton.setMaximumSize(new java.awt.Dimension(6, 6));
-        jYellowColorButton.setMinimumSize(new java.awt.Dimension(3, 3));
-        jYellowColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
-        jYellowColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jYellowColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jYellowColorButtonMouseClicked(evt);
-            }
-        });
-        jYellowColorButton.addActionListener(new java.awt.event.ActionListener() {
+        jStrokeColorButton.setBackground(new java.awt.Color(0, 0, 0));
+        jStrokeColorButton.setBorder(null);
+        jStrokeColorButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jYellowColorButtonActionPerformed(evt);
+                jStrokeColorButtonActionPerformed(evt);
             }
         });
-        jColorPanel.add(jYellowColorButton);
+        jStrokeColorPanel.add(jStrokeColorButton, java.awt.BorderLayout.CENTER);
 
-        jGreenColorButton.setBackground(new java.awt.Color(1, 168, 31));
-        jGreenColorButton.setToolTipText("Verde");
-        jColorPaletteGroup.add(jGreenColorButton);
-        jGreenColorButton.setFocusable(true);
-        jGreenColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jGreenColorButton.setMaximumSize(new java.awt.Dimension(6, 6));
-        jGreenColorButton.setMinimumSize(new java.awt.Dimension(3, 3));
-        jGreenColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
-        jGreenColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jGreenColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jGreenColorButtonMouseClicked(evt);
-            }
-        });
-        jColorPanel.add(jGreenColorButton);
+        jColorPanel.add(jStrokeColorPanel);
+
+        jFillColorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Color del Relleno", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jFillColorPanel.setToolTipText("Color para el relleno de la forma \\n(Solo valido si esta presenta la opción de relleno)");
+        jFillColorPanel.setMinimumSize(new java.awt.Dimension(25, 75));
+        jFillColorPanel.setPreferredSize(new java.awt.Dimension(25, 75));
+        jFillColorPanel.setLayout(new java.awt.BorderLayout());
+
+        jFillColorButton.setBackground(new java.awt.Color(0, 0, 0));
+        jFillColorButton.setBorder(null);
+        jFillColorButton.setEnabled(false);
+        jFillColorPanel.add(jFillColorButton, java.awt.BorderLayout.CENTER);
+
+        jColorPanel.add(jFillColorPanel);
 
         jAttributesPanel.add(jColorPanel);
 
         jStrokePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Trazo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
-        jStrokePanel.setMinimumSize(new java.awt.Dimension(600, 80));
-        jStrokePanel.setPreferredSize(new java.awt.Dimension(800, 125));
+        jStrokePanel.setMinimumSize(new java.awt.Dimension(300, 80));
+        jStrokePanel.setPreferredSize(new java.awt.Dimension(350, 125));
         jStrokePanel.setLayout(new javax.swing.BoxLayout(jStrokePanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Grosor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
@@ -284,7 +220,7 @@ public class jMainFrame extends javax.swing.JFrame {
         jPanel6.setToolTipText("");
         jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
-        jConitnuityGroup.add(jContinuityButton);
+        jContinuityGroup.add(jContinuityButton);
         jContinuityButton.setText("Contínuo");
         jContinuityButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,8 +229,8 @@ public class jMainFrame extends javax.swing.JFrame {
         });
         jPanel6.add(jContinuityButton);
 
-        jConitnuityGroup.add(jDiscontinuityButton);
-        jDiscontinuityButton.setText("Discontinuidad");
+        jContinuityGroup.add(jDiscontinuityButton);
+        jDiscontinuityButton.setText("Discontinuo");
         jDiscontinuityButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jDiscontinuityButtonActionPerformed(evt);
@@ -307,7 +243,7 @@ public class jMainFrame extends javax.swing.JFrame {
         jAttributesPanel.add(jStrokePanel);
 
         jPropertiesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Atributos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
-        jPropertiesPanel.setPreferredSize(new java.awt.Dimension(80, 40));
+        jPropertiesPanel.setPreferredSize(new java.awt.Dimension(305, 40));
         jPropertiesPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jFillPanel.setLayout(new java.awt.BorderLayout());
@@ -321,18 +257,18 @@ public class jMainFrame extends javax.swing.JFrame {
         });
         jFillPanel.add(jNoFillRadioButton, java.awt.BorderLayout.PAGE_START);
 
-        jFillButtonGroup.add(jSolidFillRadioButton);
-        jSolidFillRadioButton.setText("Relleno liso");
-        jSolidFillRadioButton.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jSolidFillRadioButtonItemStateChanged(evt);
-            }
-        });
-        jFillPanel.add(jSolidFillRadioButton, java.awt.BorderLayout.CENTER);
-
         jFillButtonGroup.add(jGradientFillRadioButton);
         jGradientFillRadioButton.setText("Relleno degradado");
         jFillPanel.add(jGradientFillRadioButton, java.awt.BorderLayout.PAGE_END);
+
+        jFillButtonGroup.add(jFillSolidRadioButton);
+        jFillSolidRadioButton.setText("Relleno Liso");
+        jFillSolidRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFillSolidRadioButtonActionPerformed(evt);
+            }
+        });
+        jFillPanel.add(jFillSolidRadioButton, java.awt.BorderLayout.CENTER);
 
         jPropertiesPanel.add(jFillPanel);
 
@@ -411,6 +347,132 @@ public class jMainFrame extends javax.swing.JFrame {
 
         jShapeFormPanel.add(jPanel7, java.awt.BorderLayout.LINE_START);
 
+        jColorChooserPanel.setMinimumSize(new java.awt.Dimension(25, 25));
+        jColorChooserPanel.setPreferredSize(new java.awt.Dimension(25, 25));
+        jColorChooserPanel.setLayout(new java.awt.GridLayout());
+
+        jDefaultColorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Colores por defecto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jDefaultColorPanel.setMinimumSize(new java.awt.Dimension(25, 25));
+        jDefaultColorPanel.setPreferredSize(new java.awt.Dimension(25, 25));
+        jDefaultColorPanel.setLayout(new java.awt.GridLayout());
+
+        jBlackColorButton.setBackground(new java.awt.Color(1, 1, 1));
+        jBlackColorButton.setToolTipText("Negro");
+        jColorPaletteGroup.add(jBlackColorButton);
+        jBlackColorButton.setFocusable(true);
+        jBlackColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBlackColorButton.setMaximumSize(new java.awt.Dimension(6, 6));
+        jBlackColorButton.setMinimumSize(new java.awt.Dimension(3, 3));
+        jBlackColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
+        jBlackColorButton.setSelected(true);
+        jBlackColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBlackColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBlackColorButtonMouseClicked(evt);
+            }
+        });
+        jDefaultColorPanel.add(jBlackColorButton);
+
+        jRedColorButton.setBackground(new java.awt.Color(255, 0, 0));
+        jRedColorButton.setToolTipText("Rojo");
+        jColorPaletteGroup.add(jRedColorButton);
+        jRedColorButton.setFocusable(true);
+        jRedColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jRedColorButton.setMaximumSize(new java.awt.Dimension(6, 6));
+        jRedColorButton.setMinimumSize(new java.awt.Dimension(3, 3));
+        jRedColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
+        jRedColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRedColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRedColorButtonMouseClicked(evt);
+            }
+        });
+        jDefaultColorPanel.add(jRedColorButton);
+
+        jBlueColorButton.setBackground(new java.awt.Color(0, 7, 255));
+        jBlueColorButton.setToolTipText("Azul");
+        jColorPaletteGroup.add(jBlueColorButton);
+        jBlueColorButton.setFocusable(true
+        );
+        jBlueColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBlueColorButton.setMaximumSize(new java.awt.Dimension(10, 10));
+        jBlueColorButton.setMinimumSize(new java.awt.Dimension(6, 6));
+        jBlueColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
+        jBlueColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBlueColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jBlueColorButtonMouseEntered(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBlueColorButtonMouseClicked(evt);
+            }
+        });
+        jDefaultColorPanel.add(jBlueColorButton);
+
+        jGrayColorButton.setBackground(new java.awt.Color(192, 192, 192));
+        jGrayColorButton.setToolTipText("Gris");
+        jColorPaletteGroup.add(jGrayColorButton);
+        jGrayColorButton.setFocusable(true
+        );
+        jGrayColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jGrayColorButton.setMaximumSize(new java.awt.Dimension(6, 6));
+        jGrayColorButton.setMinimumSize(new java.awt.Dimension(3, 3));
+        jGrayColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
+        jGrayColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jGrayColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jGrayColorButtonMouseClicked(evt);
+            }
+        });
+        jDefaultColorPanel.add(jGrayColorButton);
+
+        jYellowColorButton.setBackground(new java.awt.Color(255, 234, 0));
+        jYellowColorButton.setToolTipText("Amarillo");
+        jColorPaletteGroup.add(jYellowColorButton);
+        jYellowColorButton.setFocusable(true);
+        jYellowColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jYellowColorButton.setMaximumSize(new java.awt.Dimension(6, 6));
+        jYellowColorButton.setMinimumSize(new java.awt.Dimension(3, 3));
+        jYellowColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
+        jYellowColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jYellowColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jYellowColorButtonMouseClicked(evt);
+            }
+        });
+        jYellowColorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jYellowColorButtonActionPerformed(evt);
+            }
+        });
+        jDefaultColorPanel.add(jYellowColorButton);
+
+        jGreenColorButton.setBackground(new java.awt.Color(1, 168, 31));
+        jGreenColorButton.setToolTipText("Verde");
+        jColorPaletteGroup.add(jGreenColorButton);
+        jGreenColorButton.setFocusable(true);
+        jGreenColorButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jGreenColorButton.setMaximumSize(new java.awt.Dimension(6, 6));
+        jGreenColorButton.setMinimumSize(new java.awt.Dimension(3, 3));
+        jGreenColorButton.setPreferredSize(new java.awt.Dimension(33, 30));
+        jGreenColorButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jGreenColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jGreenColorButtonMouseClicked(evt);
+            }
+        });
+        jDefaultColorPanel.add(jGreenColorButton);
+
+        jMoreColorButton.setText("Mas colores...");
+        jMoreColorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMoreColorButtonActionPerformed(evt);
+            }
+        });
+        jDefaultColorPanel.add(jMoreColorButton);
+
+        jColorChooserPanel.add(jDefaultColorPanel);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1050, 780));
 
@@ -418,10 +480,10 @@ public class jMainFrame extends javax.swing.JFrame {
 
         jDrawingToolBar.setRollover(true);
         jDrawingToolBar.setMinimumSize(new java.awt.Dimension(38, 35));
-        jDrawingToolBar.setPreferredSize(new java.awt.Dimension(1200, 190));
+        jDrawingToolBar.setPreferredSize(new java.awt.Dimension(1300, 190));
 
         jTabbedPane.setMinimumSize(new java.awt.Dimension(1000, 160));
-        jTabbedPane.setPreferredSize(new java.awt.Dimension(1125, 190));
+        jTabbedPane.setPreferredSize(new java.awt.Dimension(1300, 190));
         jDrawingToolBar.add(jTabbedPane);
 
         jCentralPanel.add(jDrawingToolBar, java.awt.BorderLayout.PAGE_START);
@@ -1149,45 +1211,44 @@ public class jMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jStrokeSpinnerStateChanged
 
     private void jGreenColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGreenColorButtonMouseClicked
-        jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
-        vi.getImagePanel().setCurrentShapeColor(Color.GREEN);
-
+        setBackgroundButtonColor(Color.GREEN);
     }//GEN-LAST:event_jGreenColorButtonMouseClicked
 
     private void jYellowColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jYellowColorButtonActionPerformed
     }//GEN-LAST:event_jYellowColorButtonActionPerformed
 
     private void jYellowColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jYellowColorButtonMouseClicked
-        jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
-        vi.getImagePanel().setCurrentShapeColor(Color.YELLOW);
-
+        setBackgroundButtonColor(Color.YELLOW);
     }//GEN-LAST:event_jYellowColorButtonMouseClicked
 
     private void jGrayColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGrayColorButtonMouseClicked
-        jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
-        vi.getImagePanel().setCurrentShapeColor(Color.GRAY);
-
+        setBackgroundButtonColor(Color.GRAY);
     }//GEN-LAST:event_jGrayColorButtonMouseClicked
 
     private void jBlueColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBlueColorButtonMouseClicked
-        jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
-        vi.getImagePanel().setCurrentShapeColor(Color.BLUE);
-
+        setBackgroundButtonColor(Color.BLUE);
     }//GEN-LAST:event_jBlueColorButtonMouseClicked
 
     private void jRedColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRedColorButtonMouseClicked
-        jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
-        vi.getImagePanel().setCurrentShapeColor(Color.RED);
-
+        setBackgroundButtonColor(Color.RED);
     }//GEN-LAST:event_jRedColorButtonMouseClicked
 
     private void jBlackColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBlackColorButtonMouseClicked
-
-        jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
-        vi.getImagePanel().setCurrentShapeColor(Color.BLACK);
-
+        setBackgroundButtonColor(Color.BLACK);
     }//GEN-LAST:event_jBlackColorButtonMouseClicked
 
+    private void setBackgroundButtonColor(Color c) {
+        jImageInternalWindow vi;
+        if (jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
+            vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
+            jStrokeColorButton.setBackground(c);
+            this.jTabbedPane.setSelectedIndex(1);
+            this.jStrokeColorButton.setFocusable(true);
+            vi.getImagePanel().setCurrentShapeColor(c);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Solo se puede seleccionar el color para ventanas de Imágenes","Error" , JOptionPane.ERROR_MESSAGE);
+    }
     private void jCameraMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCameraMenuItemActionPerformed
         try {
             VentanaInternaCamara c = VentanaInternaCamara.getInstance();
@@ -1324,25 +1385,56 @@ public class jMainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jDiscontinuityButtonActionPerformed
 
-    private void jSolidFillRadioButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jSolidFillRadioButtonItemStateChanged
-        jImageInternalWindow vi;
-        if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
-            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-            if (vi != null) {
-                if (evt.getStateChange() == ItemEvent.SELECTED) {
-                    vi.getImagePanel().setIsShapeFilled(true);
-                }
-            }
-        }
-    }//GEN-LAST:event_jSolidFillRadioButtonItemStateChanged
-
     private void jNoFillRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNoFillRadioButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-            vi.getImagePanel().setIsShapeFilled(false);
+            vi.getImagePanel().setShapeFilled(false);
         }
     }//GEN-LAST:event_jNoFillRadioButtonActionPerformed
+
+    private void jFillSolidRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFillSolidRadioButtonActionPerformed
+        jImageInternalWindow vi;
+        if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
+            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
+            vi.getImagePanel().setShapeFilled(true);
+            //El usuario tendrá que escoger un color
+            this.jFillColorButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_jFillSolidRadioButtonActionPerformed
+
+    private void jStrokeColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStrokeColorButtonActionPerformed
+        ImageIcon colorIcon;
+        colorIcon = new ImageIcon(getClass().getResource("/es/ugr/smm/icons/color_icon.png"));
+        this.jTabbedPane.addTab("Colores", colorIcon, jColorChooserPanel, "Color a elegir para la forma");
+        this.jTabbedPane.setSelectedIndex(2);
+        this.jTabbedPane.validate();
+//        
+//        if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
+//            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
+//            //vi.getImagePanel().setCurrentShapeColor(c);
+//        }
+
+    }//GEN-LAST:event_jStrokeColorButtonActionPerformed
+
+    private void jMoreColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMoreColorButtonActionPerformed
+        Color c = JColorChooser.showDialog(this, "Elegir un color específico", Color.BLACK);
+        this.jStrokeColorButton.setBackground(c);
+        
+        jImageInternalWindow vi;
+        
+        if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow && c!=null) {
+            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
+            this.jTabbedPane.setSelectedIndex(1);
+            this.jStrokeColorButton.setFocusable(true);
+            vi.getImagePanel().setCurrentShapeColor(c);
+            
+        }
+    }//GEN-LAST:event_jMoreColorButtonActionPerformed
+
+    private void jBlueColorButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBlueColorButtonMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBlueColorButtonMouseEntered
 
     /**
      * @param args the command line arguments
@@ -1388,12 +1480,14 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jCameraMenuItem;
     private javax.swing.JMenuItem jCaptureMenuItem;
     private javax.swing.JPanel jCentralPanel;
+    private javax.swing.JPanel jColorChooserPanel;
     private javax.swing.ButtonGroup jColorPaletteGroup;
     private javax.swing.JPanel jColorPanel;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.ButtonGroup jConitnuityGroup;
     private javax.swing.JRadioButton jContinuityButton;
+    private javax.swing.ButtonGroup jContinuityGroup;
     private javax.swing.JButton jDarknessButton;
+    private javax.swing.JPanel jDefaultColorPanel;
     private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JRadioButton jDiscontinuityButton;
     private javax.swing.JToolBar jDrawingToolBar;
@@ -1402,7 +1496,10 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jExitMenuItem;
     private javax.swing.JMenu jFileMenu;
     private javax.swing.ButtonGroup jFillButtonGroup;
+    private javax.swing.JButton jFillColorButton;
+    private javax.swing.JPanel jFillColorPanel;
     private javax.swing.JPanel jFillPanel;
+    private javax.swing.JRadioButton jFillSolidRadioButton;
     private javax.swing.JButton jFreePathButton;
     private javax.swing.JRadioButton jGradientFillRadioButton;
     private javax.swing.JButton jGrayColorButton;
@@ -1415,6 +1512,7 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jLowerPanel;
     private javax.swing.JPanel jLowestPanel;
     private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JButton jMoreColorButton;
     private javax.swing.JMenuItem jNewMenuItem;
     private javax.swing.JButton jNinetyDegRotationButton;
     private javax.swing.JRadioButton jNoFillRadioButton;
@@ -1438,7 +1536,8 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jSaveMenuItem;
     private javax.swing.JPanel jShapeFormPanel;
     private javax.swing.ButtonGroup jShapePaintGroup;
-    private javax.swing.JRadioButton jSolidFillRadioButton;
+    private javax.swing.JButton jStrokeColorButton;
+    private javax.swing.JPanel jStrokeColorPanel;
     private javax.swing.JPanel jStrokePanel;
     private javax.swing.JSpinner jStrokeSpinner;
     private javax.swing.JTabbedPane jTabbedPane;

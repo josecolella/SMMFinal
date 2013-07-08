@@ -15,12 +15,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -112,7 +110,7 @@ public class ImagePanel extends javax.swing.JPanel {
         this.isEditable = isEdit;
     }
 
-    public void setIsShapeFilled(boolean isShapeFilled) {
+    public void setShapeFilled(boolean isShapeFilled) {
         this.isShapeFilled = isShapeFilled;
     }
 
