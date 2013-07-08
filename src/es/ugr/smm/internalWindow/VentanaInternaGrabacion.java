@@ -12,7 +12,8 @@ import sm.sound.SMSoundRecorder;
 
 /**
  *
- * @author Jose
+ * @author Jose Colella
+ * @version 1.0
  */
 public class VentanaInternaGrabacion extends javax.swing.JInternalFrame {
 
