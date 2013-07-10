@@ -38,9 +38,6 @@ public interface JShape extends Shape {
 
     boolean isFilled();
 
-    void setEditable(boolean isEditable);
-
-    boolean isEditable();
     
     void setContinuous(boolean isContinuous);
     

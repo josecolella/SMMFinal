@@ -22,7 +22,7 @@ public class JGeneralPath extends GeneralPath.Float implements JShape {
     private Stroke lineStroke;
     private float strokeWidth;
     private boolean isFilled;
-    private boolean isEditable;
+    
     private boolean isCont;
 
     /**
@@ -40,7 +40,7 @@ public class JGeneralPath extends GeneralPath.Float implements JShape {
     {
         lineStroke = new BasicStroke(strokeWidth);
         isFilled = false;
-        isEditable = false;
+        
     }
     @Override
     public void setPaintColor(Color color) {
@@ -73,17 +73,7 @@ public class JGeneralPath extends GeneralPath.Float implements JShape {
         return isFilled;
     }
 
-    @Override
-    public void setEditable(boolean isEditable) {
-        this.isEditable = isEditable;
-    }
-
-    @Override
-    public boolean isEditable() {
-        return this.isEditable;
-    }
-
-       
+    
     @Override
     public void setContinuous(boolean isContinuous) {
         this.isCont = isContinuous;

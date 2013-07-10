@@ -26,7 +26,7 @@ public class JRectangle extends Rectangle2D.Float implements FillableShape {
     private Paint fillPaint;
     private float strokeWidth;
     private boolean isFilled;
-    private boolean isEditable;
+    
     private boolean isCont;
 
     public JRectangle() {
@@ -40,7 +40,7 @@ public class JRectangle extends Rectangle2D.Float implements FillableShape {
     private void initializeShapeProperties() {
         lineStroke = new BasicStroke(strokeWidth);
         isFilled = false;
-        isEditable = false;
+        
         isCont = true;
     }
 
@@ -85,16 +85,7 @@ public class JRectangle extends Rectangle2D.Float implements FillableShape {
         return isFilled;
     }
 
-    @Override
-    public void setEditable(boolean isEditable) {
-        this.isEditable = isEditable;
-    }
-
-    @Override
-    public boolean isEditable() {
-        return this.isEditable;
-    }
-
+   
     @Override
     public void setContinuous(boolean isContinuous) {
         this.isCont = isContinuous;
@@ -135,8 +126,10 @@ public class JRectangle extends Rectangle2D.Float implements FillableShape {
                     10.0f, JShape.dash1, 0.0f));
         }
         g2d.setPaint(this.paintColor);
-        if(!isFilled) g2d.draw(this);
-        else g2d.fill(this);
-
+        if (!isFilled) {
+            g2d.draw(this);
+        } else if (isFilled) {
+            g2d.fill(this);
+        }
     }
 }

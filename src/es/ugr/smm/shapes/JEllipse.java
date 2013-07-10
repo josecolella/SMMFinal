@@ -23,7 +23,6 @@ public class JEllipse extends Ellipse2D.Float implements FillableShape {
     private Stroke lineStroke;
     private float strokeWidth;
     private boolean isFilled;
-    private boolean isEditable;
     private boolean isCont;
 
     public JEllipse() {
@@ -47,7 +46,7 @@ public class JEllipse extends Ellipse2D.Float implements FillableShape {
     {
         lineStroke = new BasicStroke(strokeWidth);
         isFilled = false;
-        isEditable = false;
+        
     }
     
     @Override
@@ -91,16 +90,7 @@ public class JEllipse extends Ellipse2D.Float implements FillableShape {
         return isFilled;
     }
 
-    @Override
-    public void setEditable(boolean isEditable) {
-        this.isEditable = isEditable;
-    }
-
-    @Override
-    public boolean isEditable() {
-        return this.isEditable;
-    }
-
+   
     @Override
     public void setContinuous(boolean isContinuous) {
         this.isCont = isContinuous;

@@ -46,7 +46,7 @@ import javax.swing.JOptionPane;
  *
  */
 public class jMainFrame extends javax.swing.JFrame {
-    
+
     private BufferedImage imgSource;
     private Color strokeColor;
     private Color fillColor;
@@ -55,7 +55,7 @@ public class jMainFrame extends javax.swing.JFrame {
      * Creates new form jMainFrame
      */
     public jMainFrame() {
-        
+
         initComponents();
         this.setTitle("jMultiPlayer");
         //  ImageIcon icon = createImageIcon("")
@@ -913,7 +913,7 @@ public class jMainFrame extends javax.swing.JFrame {
         Image img = bti.createImage(bufferFrame);
         return (BufferedImage) img;
     }
-    
+
     BufferedImage convertImageType(BufferedImage img, int type) {
         if (img == null) {
             return null;
@@ -924,7 +924,7 @@ public class jMainFrame extends javax.swing.JFrame {
         g2d.drawImage(img, 0, 0, null);
         return imgOut;
     }
-    
+
     private void jNewMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNewMenuItemActionPerformed
         jMultipleInputOptionPane sizePanel = new jMultipleInputOptionPane();
         jImageInternalWindow vi;
@@ -938,29 +938,29 @@ public class jMainFrame extends javax.swing.JFrame {
         vi.getImagePanel().repaint();
         vi.setVisible(true);
     }//GEN-LAST:event_jNewMenuItemActionPerformed
-    
+
     private boolean isImageExtension(String extension) {
         if (extension.equals("jpeg") || extension.equals("jpg") || extension.equals("gif") || extension.equals("png")) {
             return true;
         }
         return false;
     }
-    
+
     private boolean isSoundExtension(String extension) {
         if (extension.equals(Utils.mp3) || extension.equals(Utils.wav)) {
             return true;
         }
         return false;
-        
+
     }
-    
+
     private boolean isVideoExtension(String extension) {
         if (extension.equals(Utils.avi)) {
             return true;
         }
         return false;
     }
-    
+
     private void jOpenMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOpenMenuItemActionPerformed
         JFileChooser dlg = new JFileChooser();
         dlg.addChoosableFileFilter(new GIFImageFilter());
@@ -977,7 +977,7 @@ public class jMainFrame extends javax.swing.JFrame {
                     BufferedImage img = ImageIO.read(f);
                     jImageInternalWindow vi = new jImageInternalWindow();
                     vi.getImagePanel().setImage(img);
-                    
+
                     this.jDesktopPane.add(vi);
                     vi.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
                     vi.setTitle(f.getName());
@@ -992,9 +992,9 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jOpenMenuItemActionPerformed
-    
+
     private void jSaveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSaveMenuItemActionPerformed
-        
+
         JFileChooser dlg = new JFileChooser();
         dlg.addChoosableFileFilter(new GIFImageFilter());
         dlg.addChoosableFileFilter(new JPEGImageFilter());
@@ -1003,7 +1003,7 @@ public class jMainFrame extends javax.swing.JFrame {
         if (resp == JFileChooser.APPROVE_OPTION) {
             String ext = "";
             String extension = dlg.getFileFilter().getDescription();
-            
+
             if (extension.equals("*.jpeg,*.jpg")) {
                 ext = ".jpg";
             }
@@ -1013,22 +1013,22 @@ public class jMainFrame extends javax.swing.JFrame {
             if (extension.equals("*.gif,*.GIF")) {
                 ext = ".gif";
             }
-            
-            
-            
+
+
+
             try {
                 File f = dlg.getSelectedFile();
                 //El siguiente codigo permite conocer  la
                 jImageInternalWindow vi = (jImageInternalWindow) jDesktopPane.getSelectedFrame();
                 BufferedImage img = vi.getImagePanel().getImage();
                 ImageIO.write(img, "jpg", f);
-                
+
             } catch (Exception ex) {
                 ex.getMessage();
             }
         }
     }//GEN-LAST:event_jSaveMenuItemActionPerformed
-    
+
     private void jBrightnessSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jBrightnessSliderStateChanged
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1052,7 +1052,7 @@ public class jMainFrame extends javax.swing.JFrame {
             jBrightnessSlider.setEnabled(false);
         }
     }//GEN-LAST:event_jBrightnessSliderStateChanged
-    
+
     private void jBrightnessSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jBrightnessSliderFocusGained
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1065,12 +1065,12 @@ public class jMainFrame extends javax.swing.JFrame {
             jBrightnessSlider.setEnabled(false);
         }
     }//GEN-LAST:event_jBrightnessSliderFocusGained
-    
+
     private void jBrightnessSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jBrightnessSliderFocusLost
         imgSource = null;
         jBrightnessSlider.setValue(0);
     }//GEN-LAST:event_jBrightnessSliderFocusLost
-    
+
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1092,7 +1092,7 @@ public class jMainFrame extends javax.swing.JFrame {
             jComboBox1.setEnabled(false);
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
-    
+
     private void jNormalContrastButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNormalContrastButtonActionPerformed
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1110,7 +1110,7 @@ public class jMainFrame extends javax.swing.JFrame {
                             imgSource = convertImageType(imgSource, BufferedImage.TYPE_INT_RGB);
                             imgdest = lop.filter(imgSource, null);
                         }
-                        
+
                         vi.getImagePanel().setImage(imgdest);
                         vi.getImagePanel().repaint();
                     } catch (IllegalArgumentException e) {
@@ -1119,9 +1119,9 @@ public class jMainFrame extends javax.swing.JFrame {
                 }
             }
         }
-        
+
     }//GEN-LAST:event_jNormalContrastButtonActionPerformed
-    
+
     private void jIlluminationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIlluminationButtonActionPerformed
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1129,7 +1129,7 @@ public class jMainFrame extends javax.swing.JFrame {
                 imgSource = vi.getImagePanel().getImage();
                 BufferedImage imgdest;
                 if (imgSource != null) {
-                    
+
                     try {
                         LookupTable lt;
                         lt = LookupTableProducer.createLookupTable(LookupTableProducer.TYPE_GAMMA_CORRECTION);
@@ -1149,7 +1149,7 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jIlluminationButtonActionPerformed
-    
+
     private void jDarknessButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDarknessButtonActionPerformed
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1176,12 +1176,12 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jDarknessButtonActionPerformed
-    
+
     private void jRotationSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRotationSliderStateChanged
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
             if (vi != null && imgSource != null) {
-                
+
                 try {
                     double r = Math.toRadians(this.jRotationSlider.getValue());
                     Point p = new Point(imgSource.getWidth() / 2, imgSource.getHeight() / 2);
@@ -1197,21 +1197,21 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jRotationSliderStateChanged
-    
+
     private void jRotationSliderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRotationSliderFocusLost
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             imgSource = null;
             jRotationSlider.setValue(0);
         }
     }//GEN-LAST:event_jRotationSliderFocusLost
-    
+
     private void jRotationSliderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRotationSliderFocusGained
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
             imgSource = (vi != null) ? vi.getImagePanel().getImage() : null;
         }
     }//GEN-LAST:event_jRotationSliderFocusGained
-    
+
     private void jNinetyDegRotationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNinetyDegRotationButtonActionPerformed
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1234,7 +1234,7 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jNinetyDegRotationButtonActionPerformed
-    
+
     private void jOneEightyDegRotationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOneEightyDegRotationButtonActionPerformed
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1257,7 +1257,7 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jOneEightyDegRotationButtonActionPerformed
-    
+
     private void jTwoSeventyDegRotationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTwoSeventyDegRotationButtonActionPerformed
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1280,7 +1280,7 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTwoSeventyDegRotationButtonActionPerformed
-    
+
     private void jZoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jZoomInButtonActionPerformed
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1301,7 +1301,7 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jZoomInButtonActionPerformed
-    
+
     private void jZoomOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jZoomOutButtonActionPerformed
         if ((jImageInternalWindow) (jDesktopPane.getSelectedFrame()) instanceof jImageInternalWindow) {
             jImageInternalWindow vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
@@ -1322,7 +1322,7 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jZoomOutButtonActionPerformed
-    
+
     private void jEditCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jEditCheckBoxItemStateChanged
         jImageInternalWindow vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
         if (vi != null) {
@@ -1333,7 +1333,7 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jEditCheckBoxItemStateChanged
-    
+
     private void jStrokeSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jStrokeSpinnerStateChanged
         jImageInternalWindow vi;
         if (jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1344,37 +1344,37 @@ public class jMainFrame extends javax.swing.JFrame {
             //jStrokeSpinner.setValue(0);
             JOptionPane.showMessageDialog(null, "Solo podemos cambiar el grosor cuando tenemos presente una ventana interna de Imágenes", "Error",
                     JOptionPane.ERROR_MESSAGE);
-            
+
         }
     }//GEN-LAST:event_jStrokeSpinnerStateChanged
-    
+
     private void jGreenColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGreenColorButtonMouseClicked
         setBackgroundButtonColor(this.jStrokeColorButton, Color.GREEN);
     }//GEN-LAST:event_jGreenColorButtonMouseClicked
-    
+
     private void jYellowColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jYellowColorButtonActionPerformed
     }//GEN-LAST:event_jYellowColorButtonActionPerformed
-    
+
     private void jYellowColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jYellowColorButtonMouseClicked
         setBackgroundButtonColor(this.jStrokeColorButton, Color.YELLOW);
     }//GEN-LAST:event_jYellowColorButtonMouseClicked
-    
+
     private void jGrayColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGrayColorButtonMouseClicked
         setBackgroundButtonColor(this.jStrokeColorButton, Color.GRAY);
     }//GEN-LAST:event_jGrayColorButtonMouseClicked
-    
+
     private void jBlueColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBlueColorButtonMouseClicked
         setBackgroundButtonColor(this.jStrokeColorButton, Color.BLUE);
     }//GEN-LAST:event_jBlueColorButtonMouseClicked
-    
+
     private void jRedColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRedColorButtonMouseClicked
         setBackgroundButtonColor(this.jStrokeColorButton, Color.RED);
     }//GEN-LAST:event_jRedColorButtonMouseClicked
-    
+
     private void jBlackColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBlackColorButtonMouseClicked
         setBackgroundButtonColor(this.jStrokeColorButton, Color.BLACK);
     }//GEN-LAST:event_jBlackColorButtonMouseClicked
-    
+
     private void setBackgroundButtonColor(JButton b, Color c) {
         jImageInternalWindow vi;
         if (jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1396,7 +1396,7 @@ public class jMainFrame extends javax.swing.JFrame {
             System.err.println("Error al leer la imagen");
         }// TODO add your handling code here:
     }//GEN-LAST:event_jCameraMenuItemActionPerformed
-    
+
     private void jCaptureMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCaptureMenuItemActionPerformed
         try {
             VentanaInternaCamara vic = null;
@@ -1410,16 +1410,16 @@ public class jMainFrame extends javax.swing.JFrame {
             }
             if (vic != null) {
                 img = getFrame(vic.getPlayer());
-                
+
             } else if (vjmf != null) {
                 img = getFrame(vjmf.getPlayer());
-                
+
             }
             vi = new jImageInternalWindow();
             vi.setTitle("Captura");
             vi.getImagePanel().setImage(img);
             vi.setSize(img.getWidth(), img.getHeight());
-            
+
             this.jDesktopPane.add(vi);
             vi.setVisible(true);
         } catch (Exception e) {
@@ -1427,7 +1427,7 @@ public class jMainFrame extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jCaptureMenuItemActionPerformed
-    
+
     private void jRecordMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRecordMenuItemActionPerformed
         JFileChooser dlg = new JFileChooser();
         int resp = dlg.showSaveDialog(this);
@@ -1442,15 +1442,15 @@ public class jMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jRecordMenuItemActionPerformed
-    
+
     private void jExitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExitMenuItemActionPerformed
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_jExitMenuItemActionPerformed
-    
+
     private void jAboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAboutMenuItemActionPerformed
         JOptionPane.showMessageDialog(null, "jMultiPlayer\n" + "Versión: 1.0\n" + "Autor: José Miguel Colella", "Acerca de...", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jAboutMenuItemActionPerformed
-    
+
     private void jImageOpMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jImageOpMenuItemActionPerformed
         if (this.jImageOpMenuItem.isSelected()) {
             this.jImageManipulationPanel.setVisible(true);
@@ -1458,7 +1458,7 @@ public class jMainFrame extends javax.swing.JFrame {
             this.jImageManipulationPanel.setVisible(false);
         }
     }//GEN-LAST:event_jImageOpMenuItemActionPerformed
-    
+
     private void jViewFormsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jViewFormsMenuItemActionPerformed
         if (this.jViewFormsMenuItem.isSelected()) {
             this.jDrawingToolBar.setVisible(true);
@@ -1466,7 +1466,7 @@ public class jMainFrame extends javax.swing.JFrame {
             this.jDrawingToolBar.setVisible(false);
         }
     }//GEN-LAST:event_jViewFormsMenuItemActionPerformed
-    
+
     private void jPointButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPointButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1474,7 +1474,7 @@ public class jMainFrame extends javax.swing.JFrame {
             vi.getImagePanel().setCurrentForm(Shapes.POINT);
         }
     }//GEN-LAST:event_jPointButtonActionPerformed
-    
+
     private void jLineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLineButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1482,7 +1482,7 @@ public class jMainFrame extends javax.swing.JFrame {
             vi.getImagePanel().setCurrentForm(Shapes.LINE);
         }
     }//GEN-LAST:event_jLineButtonActionPerformed
-    
+
     private void jRectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRectangleButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1490,7 +1490,7 @@ public class jMainFrame extends javax.swing.JFrame {
             vi.getImagePanel().setCurrentForm(Shapes.RECTANGLE);
         }
     }//GEN-LAST:event_jRectangleButtonActionPerformed
-    
+
     private void jFreePathButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFreePathButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1498,7 +1498,7 @@ public class jMainFrame extends javax.swing.JFrame {
             vi.getImagePanel().setCurrentForm(Shapes.FREEFORM);
         }
     }//GEN-LAST:event_jFreePathButtonActionPerformed
-    
+
     private void jEllipseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEllipseButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1506,7 +1506,7 @@ public class jMainFrame extends javax.swing.JFrame {
             vi.getImagePanel().setCurrentForm(Shapes.ELLIPSE);
         }
     }//GEN-LAST:event_jEllipseButtonActionPerformed
-    
+
     private void jContinuityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jContinuityButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1514,7 +1514,7 @@ public class jMainFrame extends javax.swing.JFrame {
             vi.getImagePanel().setIsCont(true);
         }
     }//GEN-LAST:event_jContinuityButtonActionPerformed
-    
+
     private void jDiscontinuityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDiscontinuityButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1522,7 +1522,7 @@ public class jMainFrame extends javax.swing.JFrame {
             vi.getImagePanel().setIsCont(false);
         }
     }//GEN-LAST:event_jDiscontinuityButtonActionPerformed
-    
+
     private void jNoFillRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNoFillRadioButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1530,11 +1530,11 @@ public class jMainFrame extends javax.swing.JFrame {
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             vi.getImagePanel().setShapeFilled(false);
             vi.getImagePanel().setCurrentShapeColor(this.jStrokeColorButton.getBackground());
-            
-            
+
+
         }
     }//GEN-LAST:event_jNoFillRadioButtonActionPerformed
-    
+
     private void jFillSolidRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFillSolidRadioButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
@@ -1542,50 +1542,42 @@ public class jMainFrame extends javax.swing.JFrame {
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             vi.getImagePanel().setShapeFilled(true);
             vi.getImagePanel().setCurrentShapeColor(this.jStrokeColorButton.getBackground());
-            
+
         }
     }//GEN-LAST:event_jFillSolidRadioButtonActionPerformed
     private void createColorTab() {
+
         ImageIcon colorIcon;
         colorIcon = new ImageIcon(getClass().getResource("/es/ugr/smm/icons/color_icon.png"));
         this.jTabbedPane.addTab("Colores de Trazo", colorIcon, jColorChooserPanel, "Color de Trazo a elegir para la forma");
-        this.jTabbedPane.setSelectedIndex(2);
+        this.jTabbedPane.setSelectedComponent(jColorChooserPanel);
         this.jTabbedPane.validate();
-        
+
     }
-    
+
     private void createFillTab() {
         ImageIcon colorIcon;
-        boolean isPresent = false;
         colorIcon = new ImageIcon(getClass().getResource("/es/ugr/smm/icons/color_icon.png"));
-        if (this.jTabbedPane.getComponentAt(2) != null) {
-            isPresent = true;
-        }
         this.jTabbedPane.addTab("Colores de Relleno", colorIcon, jFillChooserPanel, "Color de Relleno a elegir para la forma");
-        
-        if (!isPresent) {
-            this.jTabbedPane.setSelectedIndex(2);
-        } else {
-            this.jTabbedPane.setSelectedIndex(3);
-        }
+        this.jTabbedPane.setSelectedComponent(jFillChooserPanel);
         this.jTabbedPane.validate();
     }
-    
+
     private void jStrokeColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStrokeColorButtonActionPerformed
-        jImageInternalWindow vi;        
+        jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             createColorTab();
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             //vi.getImagePanel().setCurrentShapeColor(c);
         }
     }//GEN-LAST:event_jStrokeColorButtonActionPerformed
-    
+
     private void jMoreColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMoreColorButtonActionPerformed
         Color c = JColorChooser.showDialog(this, "Elegir un color específico", Color.BLACK);
         this.jStrokeColorButton.setBackground(c);
-        
+
         jImageInternalWindow vi;
-        
+
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow && c != null) {
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             this.jTabbedPane.setSelectedIndex(1);
@@ -1594,52 +1586,52 @@ public class jMainFrame extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jMoreColorButtonActionPerformed
-    
+
     private void jBlueColorButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBlueColorButtonMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_jBlueColorButtonMouseEntered
-    
+
     private void jFillColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFillColorButtonActionPerformed
-        jImageInternalWindow vi;        
+        jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             createFillTab();
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             //vi.getImagePanel().setCurrentShapeColor(c);
         }
     }//GEN-LAST:event_jFillColorButtonActionPerformed
-    
+
     private void jBlackColorButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBlackColorButton1MouseClicked
         setBackgroundButtonColor(this.jFillColorButton, Color.BLACK);
     }//GEN-LAST:event_jBlackColorButton1MouseClicked
-    
+
     private void jRedColorButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRedColorButton1MouseClicked
         setBackgroundButtonColor(this.jFillColorButton, Color.RED);
     }//GEN-LAST:event_jRedColorButton1MouseClicked
-    
+
     private void jBlueColorButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBlueColorButton1MouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_jBlueColorButton1MouseEntered
-    
+
     private void jBlueColorButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBlueColorButton1MouseClicked
         setBackgroundButtonColor(this.jFillColorButton, Color.BLUE);
     }//GEN-LAST:event_jBlueColorButton1MouseClicked
-    
+
     private void jGrayColorButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGrayColorButton1MouseClicked
         setBackgroundButtonColor(this.jFillColorButton, Color.GRAY);
     }//GEN-LAST:event_jGrayColorButton1MouseClicked
-    
+
     private void jYellowColorButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jYellowColorButton1MouseClicked
         setBackgroundButtonColor(this.jFillColorButton, Color.YELLOW);
     }//GEN-LAST:event_jYellowColorButton1MouseClicked
-    
+
     private void jYellowColorButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jYellowColorButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jYellowColorButton1ActionPerformed
-    
+
     private void jGreenColorButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGreenColorButton1MouseClicked
         setBackgroundButtonColor(this.jFillColorButton, Color.GREEN);
     }//GEN-LAST:event_jGreenColorButton1MouseClicked
-    
+
     private void jMoreColorButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMoreColorButton1ActionPerformed
         Color c = JColorChooser.showDialog(this, "Elegir un color específico", Color.BLACK);
         setBackgroundButtonColor(this.jFillColorButton, c);
