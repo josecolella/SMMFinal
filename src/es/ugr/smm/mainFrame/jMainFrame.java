@@ -128,6 +128,14 @@ public class jMainFrame extends javax.swing.JFrame {
         jYellowColorButton1 = new javax.swing.JButton();
         jGreenColorButton1 = new javax.swing.JButton();
         jMoreColorButton1 = new javax.swing.JButton();
+        jGradientPanel = new javax.swing.JPanel();
+        jFrontGradientPanel = new javax.swing.JPanel();
+        jFrontGradientButton = new javax.swing.JButton();
+        jBackGradientPanel = new javax.swing.JPanel();
+        jBackGradientButton = new javax.swing.JButton();
+        jGradientDirectionPanel = new javax.swing.JPanel();
+        jHorizontalButton = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jCentralPanel = new javax.swing.JPanel();
         jDrawingToolBar = new javax.swing.JToolBar();
         jTabbedPane = new javax.swing.JTabbedPane();
@@ -273,6 +281,11 @@ public class jMainFrame extends javax.swing.JFrame {
 
         jFillButtonGroup.add(jGradientFillRadioButton);
         jGradientFillRadioButton.setText("Relleno degradado");
+        jGradientFillRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGradientFillRadioButtonActionPerformed(evt);
+            }
+        });
         jFillPanel.add(jGradientFillRadioButton, java.awt.BorderLayout.PAGE_END);
 
         jFillButtonGroup.add(jFillSolidRadioButton);
@@ -487,12 +500,12 @@ public class jMainFrame extends javax.swing.JFrame {
 
         jColorChooserPanel.add(jDefaultColorPanel);
 
-        jFillChooserPanel.setLayout(new java.awt.GridLayout());
+        jFillChooserPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jDefaultColorPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Colores por defecto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
         jDefaultColorPanel1.setMinimumSize(new java.awt.Dimension(25, 25));
         jDefaultColorPanel1.setPreferredSize(new java.awt.Dimension(25, 25));
-        jDefaultColorPanel1.setLayout(new java.awt.GridLayout());
+        jDefaultColorPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jBlackColorButton1.setBackground(new java.awt.Color(1, 1, 1));
         jBlackColorButton1.setToolTipText("Negro");
@@ -502,7 +515,6 @@ public class jMainFrame extends javax.swing.JFrame {
         jBlackColorButton1.setMaximumSize(new java.awt.Dimension(6, 6));
         jBlackColorButton1.setMinimumSize(new java.awt.Dimension(3, 3));
         jBlackColorButton1.setPreferredSize(new java.awt.Dimension(33, 30));
-        jBlackColorButton1.setSelected(true);
         jBlackColorButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBlackColorButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -610,6 +622,35 @@ public class jMainFrame extends javax.swing.JFrame {
         jDefaultColorPanel1.add(jMoreColorButton1);
 
         jFillChooserPanel.add(jDefaultColorPanel1);
+
+        jGradientPanel.setLayout(new javax.swing.BoxLayout(jGradientPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        jFrontGradientPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Color de Frente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jFrontGradientPanel.setLayout(new java.awt.BorderLayout());
+
+        jFrontGradientButton.setBackground(new java.awt.Color(0, 0, 0));
+        jFrontGradientPanel.add(jFrontGradientButton, java.awt.BorderLayout.CENTER);
+
+        jGradientPanel.add(jFrontGradientPanel);
+
+        jBackGradientPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Color de Fondo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jBackGradientPanel.setLayout(new java.awt.BorderLayout());
+
+        jBackGradientButton.setBackground(new java.awt.Color(0, 0, 0));
+        jBackGradientPanel.add(jBackGradientButton, java.awt.BorderLayout.CENTER);
+
+        jGradientPanel.add(jBackGradientPanel);
+
+        jGradientDirectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dirección del Degradado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jGradientDirectionPanel.setLayout(new java.awt.GridLayout());
+
+        jHorizontalButton.setText("Horizontal");
+        jGradientDirectionPanel.add(jHorizontalButton);
+
+        jRadioButton2.setText("Vertical");
+        jGradientDirectionPanel.add(jRadioButton2);
+
+        jGradientPanel.add(jGradientDirectionPanel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1050, 780));
@@ -1562,6 +1603,15 @@ public class jMainFrame extends javax.swing.JFrame {
         this.jTabbedPane.setSelectedComponent(jFillChooserPanel);
         this.jTabbedPane.validate();
     }
+    
+    private void createGradientTab()
+    {
+        ImageIcon gradientIcon;
+        gradientIcon = new ImageIcon(getClass().getResource("/es/ugr/smm/icons/gradient.GIF"));
+        this.jTabbedPane.addTab("Relleno degradado", gradientIcon, jGradientPanel, "Colores de frente y fondo y dirección del degradado");
+        this.jTabbedPane.setSelectedComponent(jGradientPanel);
+        this.jTabbedPane.validate();
+    }
 
     private void jStrokeColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStrokeColorButtonActionPerformed
         jImageInternalWindow vi;
@@ -1637,6 +1687,10 @@ public class jMainFrame extends javax.swing.JFrame {
         setBackgroundButtonColor(this.jFillColorButton, c);
     }//GEN-LAST:event_jMoreColorButton1ActionPerformed
 
+    private void jGradientFillRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGradientFillRadioButtonActionPerformed
+       this.createGradientTab();
+    }//GEN-LAST:event_jGradientFillRadioButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1674,6 +1728,8 @@ public class jMainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jAboutMenuItem;
     private javax.swing.JPanel jAttributesPanel;
+    private javax.swing.JButton jBackGradientButton;
+    private javax.swing.JPanel jBackGradientPanel;
     private javax.swing.JButton jBlackColorButton;
     private javax.swing.JButton jBlackColorButton1;
     private javax.swing.JButton jBlueColorButton;
@@ -1707,11 +1763,16 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jFillPanel;
     private javax.swing.JRadioButton jFillSolidRadioButton;
     private javax.swing.JButton jFreePathButton;
+    private javax.swing.JButton jFrontGradientButton;
+    private javax.swing.JPanel jFrontGradientPanel;
+    private javax.swing.JPanel jGradientDirectionPanel;
     private javax.swing.JRadioButton jGradientFillRadioButton;
+    private javax.swing.JPanel jGradientPanel;
     private javax.swing.JButton jGrayColorButton;
     private javax.swing.JButton jGrayColorButton1;
     private javax.swing.JButton jGreenColorButton;
     private javax.swing.JButton jGreenColorButton1;
+    private javax.swing.JRadioButton jHorizontalButton;
     private javax.swing.JButton jIlluminationButton;
     private javax.swing.JPanel jImageManipulationPanel;
     private javax.swing.JCheckBoxMenuItem jImageOpMenuItem;
@@ -1737,6 +1798,7 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JButton jPointButton;
     private javax.swing.JPanel jPropertiesPanel;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JMenuItem jRecordMenuItem;
     private javax.swing.JButton jRectangleButton;
     private javax.swing.JButton jRedColorButton;

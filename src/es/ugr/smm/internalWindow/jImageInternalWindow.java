@@ -1,28 +1,50 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.ugr.smm.internalWindow;
 
 import es.ugr.smm.imagePanel.ImagePanel;
 
 /**
+ * jImageInternalWindow representa la ventana de imágenes 
+ * que puede almacenar imágenes creadas por un usuario o 
+ * capturas generadas de:
+ * <ul>
+ *  <li>{@link VentanaInternaCamara}</li>  
+ *  <li>{@link VentanaInternaJMFPlayer}</li>
+ * </ul>
+ * Sobre esta clase se pueden aplicar una 
+ * multitud de operaciones de imágenes. Esta  clase usa
+ * el panel {@link ImagePanel} para manipular imágenes.
+ * 
  *
- * @author Jose
+ * @author Jose Colella
+ * @version 1.0
+ * @see VentanaInternaCamara
+ * @see VentanaInternaJMFPlayer
+ * @see ImagePanel
  */
 public class jImageInternalWindow extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form jImageInternalWindow
+     * Inicializa una jImageWindow que
+     * proporciona la habilidad para dibujar 
+     * 
      */
     public jImageInternalWindow() {
         initComponents();
     }
 
+    /**
+     * Este constructor toma como parametro la 
+     * altura y la anchura de la ventana interna
+     * y construye una ventana con esa altura y anchura
+     * 
+     * @param height La altura de la ventana
+     * @param width  La anchura de la ventana
+     */
     public jImageInternalWindow(Integer height, Integer width) {
         initSpecialComponent(height, width);
     }
 
+    //Inicializa la ventana interna
     private void initSpecialComponent(Integer height, Integer width) {
 
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -52,6 +74,11 @@ public class jImageInternalWindow extends javax.swing.JInternalFrame {
         pack();
     }
 
+    /**El metodo devuelve el panel de dibujos
+     * de la ventana interna
+     * 
+     * @return {@link ImagePanel} el panel de imágenes
+     */
     public ImagePanel getImagePanel() {
         return this.imagePanel;
     }

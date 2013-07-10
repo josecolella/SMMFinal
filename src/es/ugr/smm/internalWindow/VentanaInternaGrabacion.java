@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.ugr.smm.internalWindow;
 
 import java.io.File;
@@ -10,17 +6,26 @@ import javax.sound.sampled.LineListener;
 import sm.sound.SMRecorder;
 import sm.sound.SMSoundRecorder;
 
-/**
+/**VentanaInternaGrabacion representa la ventana interna 
+ * que proporciona la habilidad de grabar sonidos creados
+ * por el usuario y grabarlos en archivos {@link File} con 
+ * extensión .wav
  *
  * @author Jose Colella
  * @version 1.0
+ * @see SMRecorder
  */
 public class VentanaInternaGrabacion extends javax.swing.JInternalFrame {
 
+    //Atributo que proporciona la habilidad de grabar sonido
     SMRecorder recorder;
 
     /**
-     * Creates new form VentanaInternaGrabacion
+     * El constructor toma como parametro un fichero 
+     * donde se grabará el sonido generado por el usuario
+     * 
+     * @param f Fichero a grabar el sonido 
+     * @see File
      */
     public VentanaInternaGrabacion(File f) {
         initComponents();
@@ -89,7 +94,8 @@ public class VentanaInternaGrabacion extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //Evento generado cuando se toca el boton de grabación
     private void botonGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGrabarActionPerformed
         if (recorder != null) {
             recorder.record();
@@ -100,6 +106,7 @@ public class VentanaInternaGrabacion extends javax.swing.JInternalFrame {
         //botonStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sm/sound/iconos/StopNormalRed_48x48.png"))); // NOI18N
     }//GEN-LAST:event_botonGrabarActionPerformed
 
+    //Evento generado cuando se toca el boton de parada
     private void botonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonStopActionPerformed
         if (recorder != null) {
             recorder.stop();
