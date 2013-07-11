@@ -8,44 +8,43 @@ import es.ugr.smm.shapes.JLine;
 import es.ugr.smm.shapes.JRectangle;
 import es.ugr.smm.shapes.JShape;
 import es.ugr.smm.shapes.JPoint;
+import es.ugr.smm.shapes.ShapeAttribute;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ImagePanel representa el lienzo de imágenes
- * donde se crean imágenes de usuarios, o generadas 
- * de capturas de:
+ * ImagePanel representa el lienzo de imágenes donde se crean imágenes de
+ * usuarios, o generadas de capturas de:
  * <ul>
- *  <li>VentanaInternaCamara</li>
- *  <li>VentanaInternaJMFPlayer</li>
+ * <li>VentanaInternaCamara</li>
+ * <li>VentanaInternaJMFPlayer</li>
  * </ul>
  * Sobre el se puede dibujar diversas formas {@link JShape} con diversos
  * atributos. Las siguientes formas son validas:
  * <ul>
- *  <li>JLine</li>
- *  <li>JPoint</li>
- *  <li>JEllipse</li>
- *  <li>JRectangle</li>
- *  <li>JGeneralPath</li>
+ * <li>JLine</li>
+ * <li>JPoint</li>
+ * <li>JEllipse</li>
+ * <li>JRectangle</li>
+ * <li>JGeneralPath</li>
  * </ul>
  * <p>
- * Sobre dichos {link JShape} se puede manipular los siguientes 
- * atributos:
+ * Sobre dichos {link JShape} se puede manipular los siguientes atributos:
  * <ul>
- *  <li>Color</li>
- *  <li>Stroke</li>
- *  <li>Filling</li>
+ * <li>Color</li>
+ * <li>Stroke</li>
+ * <li>Filling</li>
  * </ul>
  * </p>
  * <p>
- * Además se puede manipular las imágenes con diversas 
- * operaciones.
+ * Además se puede manipular las imágenes con diversas operaciones.
  * </p>
  *
  *
@@ -57,10 +56,7 @@ public class ImagePanel extends javax.swing.JPanel {
 
     private static int DEFAULT_HEIGHT = 300;
     private static int DEFAULT_WIDTH = 300;
-    
     private Shapes currentDrawingShape;
-    private Color currentShapeColor;
-    private float strokeWidth;
     private int height;
     private int width;
     private BufferedImage defaultImage;
@@ -70,50 +66,50 @@ public class ImagePanel extends javax.swing.JPanel {
     private JShape currentShape;
     private Point2D p;
     private boolean isEditable;
-    private boolean isShapeFilled;
-    private boolean isCont;
+    private ShapeAttribute shapeAttribute;
 
     /**
      * Construye un ImagePanel e inicializa sus componentes
      */
     public ImagePanel() {
         initComponents();
+        shapeAttribute = new ShapeAttribute();
         this.height = DEFAULT_HEIGHT;
         this.width = DEFAULT_WIDTH;
-        defaultImage = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
-        jShapeArray = new ArrayList();
-        currentShapeColor = Color.BLACK;
-        currentDrawingShape = Shapes.POINT;
-        strokeWidth = (float) 1.0;
-        currentShape = new JPoint(new Point2D.Float(-1, -1), new Point2D.Float(-1, -1));
-        isEditable = false;
-        isShapeFilled = false;
-        isCont = true;
+        initializePanelAttributes();
+
     }
+
     /**
-     * Construye un ImagePanel con las dimensiones 
-     * especificadas como parametros de entrada
-     * 
+     * Construye un ImagePanel con las dimensiones especificadas como parametros
+     * de entrada
+     *
      * @param height La altura de la ventana a construir
-     * @param width  La anchura de la venta a construir
+     * @param width La anchura de la venta a construir
      * @see Integer
      */
     public ImagePanel(Integer height, Integer width) {
         initComponents();
         this.height = height;
         this.width = width;
-        defaultImage = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
+        initializePanelAttributes();
+        
+    }
+    
+    private void initializePanelAttributes()
+    {
+        defaultImage = new BufferedImage(this.height, this.width, BufferedImage.TYPE_INT_ARGB);
         jShapeArray = new ArrayList();
-        currentShapeColor = Color.BLACK;
         currentDrawingShape = Shapes.POINT;
-        strokeWidth = (float) 1.0;
         currentShape = new JPoint(new Point2D.Float(-1, -1), new Point2D.Float(-1, -1));
         isEditable = false;
-        isShapeFilled = false;
-        isCont = true;
     }
+    
+    
+    
     //Devuelve la forma que esta contenida en el {@link Point2D} pasado
     //parametro
+
     private JShape getSelectedShape(Point2D p) {
         for (JShape s : jShapeArray) {
             if (s.isContained(p)) {
@@ -122,56 +118,61 @@ public class ImagePanel extends javax.swing.JPanel {
         }
         return null;
     }
-    
+
     /**
      * Asigna el color de la forma {@link JShape} actual
-     * 
-     * @param color El color que caracteriza la forma actual 
+     *
+     * @param color El color que caracteriza la forma actual
      * @see Color
      * @see JShape
      */
-    public void setCurrentShapeColor(Color color) {
-        this.currentShapeColor = color;
+    public void setCurrentStrokeColor(Color color) {
+        this.shapeAttribute.setPaintColor(color);
     }
 
     /**
      * Devuelve el color de la forma actual
-     * 
+     *
      * @return el Color de la forma {@link JShape}
      */
     public Color getCurrentShapeColor() {
-        return this.currentShapeColor;
+        return this.shapeAttribute.getPaintColor();
+    }
+
+    public void setCurrentFillColor(Color color) {
+        this.shapeAttribute.setFillColor(color);
+    }
+
+    public Color getCurrentFillColor() {
+        return this.shapeAttribute.getFillColor();
     }
 
     /**
-     * Devuelve el flotante que representa la anchura 
-     * del Trazo 
-     * 
+     * Devuelve el flotante que representa la anchura del Trazo
+     *
      * @return flotante que representa la anchura
      * @see Stroke
      */
     public float getStrokeWidth() {
-        return strokeWidth;
+        return shapeAttribute.getStrokeWidth();
     }
 
     /**
-     * Asigna el flotante que representa la anchura del 
-     * trazo de la forma actual
+     * Asigna el flotante que representa la anchura del trazo de la forma actual
      *
-     * @param strokeWidth El flotante que representa la anchura 
-     * 
+     * @param strokeWidth El flotante que representa la anchura
+     *
      */
     public void setStrokeWidth(float strokeWidth) {
-        this.strokeWidth = strokeWidth;
+        this.shapeAttribute.setStrokeWidth(strokeWidth);
     }
 
     /**
-     * Metodo que asigna si las formas del lienzo pueden
-     * ser editadas
-     * 
-     * @param isEdit un booleano que determina si las formas del ImagePanel 
-     *               se pueden editar
-     * 
+     * Metodo que asigna si las formas del lienzo pueden ser editadas
+     *
+     * @param isEdit un booleano que determina si las formas del ImagePanel se
+     * pueden editar
+     *
      */
     public void setIsEdit(boolean isEdit) {
         this.isEditable = isEdit;
@@ -179,30 +180,28 @@ public class ImagePanel extends javax.swing.JPanel {
 
     /**
      * Asigna si la forma actual esta rellena
-     * 
-     * @param isShapeFilled booleano que indica si la forma esta rellena
+     *
+     * @param isFilled booleano que indica si la forma esta rellena
      */
     public void setShapeFilled(boolean isShapeFilled) {
-        this.isShapeFilled = isShapeFilled;
+        this.shapeAttribute.setFilled(isShapeFilled);
     }
 
     /**
-     * Asigna un booleano que indica si la forma 
-     * es continua o discontinua
-     * 
+     * Asigna un booleano que indica si la forma es continua o discontinua
+     *
      * @param isCont booleana que representa si la forma es continua
      */
     public void setIsCont(boolean isCont) {
-        this.isCont = isCont;
+        this.shapeAttribute.setCont(isCont);
     }
 
     /**
-     * El metodo coge el parametro y lo asigna
-     * a el lienzo, además cambia la dimensión
-     * de la ventana interna con las dimensiones de la
+     * El metodo coge el parametro y lo asigna a el lienzo, además cambia la
+     * dimensión de la ventana interna con las dimensiones de la
      * {@link BufferedImage}
-     * 
-     * @param image 
+     *
+     * @param image
      * @see BufferedImage
      */
     public void setImage(BufferedImage image) {
@@ -212,7 +211,7 @@ public class ImagePanel extends javax.swing.JPanel {
 
     /**
      * Devuelve la imagen actual que tiene el lienzo actual
-     * 
+     *
      * @return BufferedImage la imágen del lienzo
      */
     public BufferedImage getImage() {
@@ -220,9 +219,8 @@ public class ImagePanel extends javax.swing.JPanel {
     }
 
     /**
-     * Asigna la forma actual del lienzo
-     * usando {@link Shapes}
-     * 
+     * Asigna la forma actual del lienzo usando {@link Shapes}
+     *
      * @param s La forma actual
      * @see Shapes
      */
@@ -231,14 +229,14 @@ public class ImagePanel extends javax.swing.JPanel {
     }
 
     /**
-     * El metodo devuelve una cadena de caracteres 
-     * que representa la forma actual a dibujar
-     * 
+     * El metodo devuelve una cadena de caracteres que representa la forma
+     * actual a dibujar
+     *
      * @return String La cadena de catacteres que representa la forma
      */
     public String getCurrentForm() {
         return this.currentDrawingShape.toString();
-    } 
+    }
 
     public JShape getCurrentShape() {
         return this.currentShape;
@@ -253,7 +251,7 @@ public class ImagePanel extends javax.swing.JPanel {
             currentShape = new JRectangle();
             ((JRectangle) currentShape).setFrameFromDiagonal(punto1, punto2);
         } else if (this.currentDrawingShape == Shapes.ELLIPSE) {
-            currentShape = new JEllipse(currentShapeColor);
+            currentShape = new JEllipse();
             ((JEllipse) currentShape).setFrameFromDiagonal(punto1, punto2);
         } else if (this.currentDrawingShape == Shapes.FREEFORM) {
             currentShape = new JGeneralPath();
@@ -261,10 +259,11 @@ public class ImagePanel extends javax.swing.JPanel {
         }
 
         //Set the attributes for the JShape to create
-        currentShape.setPaintColor(this.currentShapeColor);
-        currentShape.setStrokeWidth(this.strokeWidth);
-        currentShape.setFilled(this.isShapeFilled);
-        currentShape.setContinuous(isCont);
+        currentShape.setStrokeWidth(this.shapeAttribute.getStrokeWidth());
+        currentShape.setPaintColor(this.shapeAttribute.getPaintColor());
+        currentShape.setFilled(this.shapeAttribute.isFilled());
+        currentShape.setFillColor(this.shapeAttribute.getFillColor());
+        currentShape.setContinuous(this.shapeAttribute.isCont());
 
         return currentShape;
     }
