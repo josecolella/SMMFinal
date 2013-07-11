@@ -127,8 +127,12 @@ public class JEllipse extends Ellipse2D.Float implements FillableShape {
             BasicStroke.JOIN_MITER,
             10.0f,JShape.dash1, 0.0f));
         g2d.setPaint(this.paintColor);
-        if(!isFilled) g2d.draw(this);
-        else g2d.fill(this);
+        g2d.draw(this);
+        if(isFilled) 
+        {
+           g2d.setPaint(this.fillColor);
+           g2d.fill(this);
+        }
 
     }
 }

@@ -116,4 +116,14 @@ public class JGeneralPath extends GeneralPath.Float implements JShape {
         g2d.draw(this);
 
     }
+
+    @Override
+    public void setFillColor(Color color) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Color getFillColor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

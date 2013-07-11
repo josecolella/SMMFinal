@@ -4,9 +4,10 @@
  */
 package es.ugr.smm.shapes;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Stroke;
+import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
@@ -16,56 +17,52 @@ import java.awt.geom.Point2D;
  */
 public abstract class AbstractAttributableLine extends Line2D.Float implements JShape {
 
-    protected Color paintColor;
-    protected Stroke lineStroke;
-    protected float strokeWidth;
-    protected boolean isFilled;
-    protected boolean isCont;
+    protected ShapeAttribute shapeAttribute;
 
-    
-    protected AbstractAttributableLine()
-    {
+    protected AbstractAttributableLine() {
         super();
-        paintColor = Color.BLACK;
-        strokeWidth = (float) 1.0;
-        initializeShapeProperties();
+        shapeAttribute = new ShapeAttribute();
+       
     }
-    
+
     protected AbstractAttributableLine(Point2D p1, Point2D p2) {
         super(p1, p2);
-        paintColor = Color.BLACK;
-        strokeWidth = (float) 1.0;
-        initializeShapeProperties();
+        shapeAttribute = new ShapeAttribute();
+        
     }
 
-    
-    private void initializeShapeProperties() {
-        isFilled = false;      
-        isCont = true;
-    }
     /**
      * @return the paintColor
      */
     @Override
     public Color getPaintColor() {
-        return paintColor;
+        return shapeAttribute.getPaintColor();
     }
 
     /**
      * @param paintColor the paintColor to set
      */
     @Override
-    public void setPaintColor(Color paintColor) {
-        this.paintColor = paintColor;
+    public void setPaintColor(Color color) {
+        this.shapeAttribute.setPaintColor(color);
     }
 
+    @Override
+    public void setFillColor(Color color) {
+        this.shapeAttribute.setFillColor(color);
+    }
+
+    @Override
+    public Color getFillColor() {
+        return this.shapeAttribute.getFillColor();
+    }
 
     /**
      * @return the strokeWidth
      */
     @Override
     public float getStrokeWidth() {
-        return strokeWidth;
+        return shapeAttribute.getStrokeWidth();
     }
 
     /**
@@ -73,7 +70,7 @@ public abstract class AbstractAttributableLine extends Line2D.Float implements J
      */
     @Override
     public void setStrokeWidth(float strokeWidth) {
-        this.strokeWidth = strokeWidth;
+        this.shapeAttribute.setStrokeWidth(strokeWidth);
     }
 
     /**
@@ -81,7 +78,7 @@ public abstract class AbstractAttributableLine extends Line2D.Float implements J
      */
     @Override
     public boolean isFilled() {
-        return isFilled;
+        return shapeAttribute.isFilled();
     }
 
     /**
@@ -89,20 +86,19 @@ public abstract class AbstractAttributableLine extends Line2D.Float implements J
      */
     @Override
     public void setFilled(boolean isFilled) {
-        this.isFilled = isFilled;
+        this.shapeAttribute.setFilled(isFilled);
     }
 
     @Override
-   public void setContinuous(boolean isContinuous) {
-        this.isCont = isContinuous;
+    public void setContinuous(boolean isContinuous) {
+        this.shapeAttribute.setCont(isContinuous);
     }
 
     @Override
     public boolean isContinuous() {
-        return isCont;
+        return shapeAttribute.isCont();
     }
-    
-    
+
     private boolean isNear(Point2D p) {
         return this.ptLineDist(p) <= 2.0;
     }
@@ -116,19 +112,31 @@ public abstract class AbstractAttributableLine extends Line2D.Float implements J
     }
 
     @Override
-    public void setLocation(Point2D pos) {
-        double dx = pos.getX() - this.getX1();
-        double dy = pos.getY() - this.getY1();
-        Point2D newPoint;
-        newPoint = new Point2D.Double(this.getX2() + dx, this.getY2() + dy);
-        this.setLine(pos, newPoint);
-    }
+    abstract public void setLocation(Point2D pos);
+    
+    @Override
+    abstract public void update(Point2D p1, Point2D p2);
 
     @Override
-    public void update(Point2D p1, Point2D p2) {
-        this.setLine(p1, p2);
-    }
+    public void paint(Graphics g) {
 
-    abstract public void paint(Graphics g);
-    
+        Graphics2D g2d = (Graphics2D) g;
+        if (shapeAttribute.isCont()) {
+            shapeAttribute.setShapeStroke(new BasicStroke(this.shapeAttribute.getStrokeWidth()));
+            g2d.setStroke(shapeAttribute.getShapeStroke());
+        } else if (!shapeAttribute.isCont()) {
+            shapeAttribute.setShapeStroke(new BasicStroke(this.shapeAttribute.getStrokeWidth(),
+                    BasicStroke.CAP_BUTT,
+                    BasicStroke.JOIN_MITER,
+                    10.0f, JShape.dash1, 0.0f));
+            g2d.setStroke(shapeAttribute.getShapeStroke());
+        }
+        g2d.setPaint(this.shapeAttribute.getPaintColor());
+        g2d.draw(this);
+        if (shapeAttribute.isFilled()) {
+            g2d.setPaint(this.shapeAttribute.getFillColor());
+            g2d.fill(this);
+        }
+
+    }
 }

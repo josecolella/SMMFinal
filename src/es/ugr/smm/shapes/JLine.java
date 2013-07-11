@@ -4,9 +4,6 @@
  */
 package es.ugr.smm.shapes;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 /**
@@ -24,21 +21,18 @@ public class JLine extends AbstractAttributableLine {
         super(p1, p2);
 
     }
+   
+    @Override
+    public void setLocation(Point2D pos) {
+        double dx = pos.getX() - this.getX1();
+        double dy = pos.getY() - this.getY1();
+        Point2D newPoint;
+        newPoint = new Point2D.Double(this.getX2() + dx, this.getY2() + dy);
+        this.setLine(pos, newPoint);
+    }
 
     @Override
-    public void paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        if (isCont) {
-            lineStroke = new BasicStroke(this.strokeWidth);
-            g2d.setStroke(lineStroke);
-        } else if (!isCont) {
-            lineStroke = new BasicStroke(this.strokeWidth,
-                    BasicStroke.CAP_BUTT,
-                    BasicStroke.JOIN_MITER,
-                    10.0f, JShape.dash1, 0.0f);
-            g2d.setStroke(lineStroke);
-        }
-        g2d.setPaint(this.paintColor);
-        g2d.draw(this);
+    public void update(Point2D p1, Point2D p2) {
+        this.setLine(p1, p2);
     }
 }

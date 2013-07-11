@@ -642,7 +642,7 @@ public class jMainFrame extends javax.swing.JFrame {
         jGradientPanel.add(jBackGradientPanel);
 
         jGradientDirectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dirección del Degradado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
-        jGradientDirectionPanel.setLayout(new java.awt.GridLayout());
+        jGradientDirectionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jHorizontalButton.setText("Horizontal");
         jGradientDirectionPanel.add(jHorizontalButton);
@@ -1421,9 +1421,12 @@ public class jMainFrame extends javax.swing.JFrame {
         if (jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
             b.setBackground(c);
-            this.jTabbedPane.setSelectedIndex(1);
-            this.jStrokeColorButton.setFocusable(true);
-            vi.getImagePanel().setCurrentShapeColor(c);
+            this.jTabbedPane.setSelectedComponent(jAttributesPanel);
+            b.setFocusable(true);
+            vi.getImagePanel().setCurrentStrokeColor(this.jStrokeColorButton.getBackground());
+            if (this.jFillColorButton.isEnabled()) {
+                vi.getImagePanel().setCurrentFillColor(this.jFillColorButton.getBackground());
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Solo se puede seleccionar el color para ventanas de Imágenes", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -1570,8 +1573,6 @@ public class jMainFrame extends javax.swing.JFrame {
             this.jFillColorButton.setEnabled(false);
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             vi.getImagePanel().setShapeFilled(false);
-            vi.getImagePanel().setCurrentShapeColor(this.jStrokeColorButton.getBackground());
-
 
         }
     }//GEN-LAST:event_jNoFillRadioButtonActionPerformed
@@ -1582,7 +1583,7 @@ public class jMainFrame extends javax.swing.JFrame {
             this.jFillColorButton.setEnabled(true);
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             vi.getImagePanel().setShapeFilled(true);
-            vi.getImagePanel().setCurrentShapeColor(this.jStrokeColorButton.getBackground());
+
 
         }
     }//GEN-LAST:event_jFillSolidRadioButtonActionPerformed
@@ -1603,9 +1604,8 @@ public class jMainFrame extends javax.swing.JFrame {
         this.jTabbedPane.setSelectedComponent(jFillChooserPanel);
         this.jTabbedPane.validate();
     }
-    
-    private void createGradientTab()
-    {
+
+    private void createGradientTab() {
         ImageIcon gradientIcon;
         gradientIcon = new ImageIcon(getClass().getResource("/es/ugr/smm/icons/gradient.GIF"));
         this.jTabbedPane.addTab("Relleno degradado", gradientIcon, jGradientPanel, "Colores de frente y fondo y dirección del degradado");
@@ -1617,24 +1617,12 @@ public class jMainFrame extends javax.swing.JFrame {
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             createColorTab();
-            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-            //vi.getImagePanel().setCurrentShapeColor(c);
         }
     }//GEN-LAST:event_jStrokeColorButtonActionPerformed
 
     private void jMoreColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMoreColorButtonActionPerformed
         Color c = JColorChooser.showDialog(this, "Elegir un color específico", Color.BLACK);
-        this.jStrokeColorButton.setBackground(c);
-
-        jImageInternalWindow vi;
-
-        if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow && c != null) {
-            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-            this.jTabbedPane.setSelectedIndex(1);
-            this.jStrokeColorButton.setFocusable(true);
-            //vi.getImagePanel().setCurrentShapeColor(c);
-
-        }
+        setBackgroundButtonColor(this.jStrokeColorButton, c);
     }//GEN-LAST:event_jMoreColorButtonActionPerformed
 
     private void jBlueColorButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBlueColorButtonMouseEntered
@@ -1646,7 +1634,7 @@ public class jMainFrame extends javax.swing.JFrame {
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             createFillTab();
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-            //vi.getImagePanel().setCurrentShapeColor(c);
+            //vi.getImagePanel().setCurrentStrokeColor(c);
         }
     }//GEN-LAST:event_jFillColorButtonActionPerformed
 
@@ -1688,7 +1676,7 @@ public class jMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMoreColorButton1ActionPerformed
 
     private void jGradientFillRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGradientFillRadioButtonActionPerformed
-       this.createGradientTab();
+        this.createGradientTab();
     }//GEN-LAST:event_jGradientFillRadioButtonActionPerformed
 
     /**

@@ -30,6 +30,9 @@ public interface JShape extends Shape {
 
     Color getPaintColor();
 
+    void setFillColor(Color color);
+    Color getFillColor();
+    
     void setStrokeWidth(float width);
 
     float getStrokeWidth();
@@ -37,7 +40,6 @@ public interface JShape extends Shape {
     void setFilled(boolean isFilled);
 
     boolean isFilled();
-
     
     void setContinuous(boolean isContinuous);
     
