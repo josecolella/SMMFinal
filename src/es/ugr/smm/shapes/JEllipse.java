@@ -6,9 +6,9 @@ package es.ugr.smm.shapes;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
@@ -16,90 +16,91 @@ import java.awt.geom.Point2D;
  *
  * @author Jose
  */
-public class JEllipse extends Ellipse2D.Float implements FillableShape {
+public class JEllipse extends Ellipse2D.Float implements JShape {
 
-    private Color paintColor;
-    private Color fillColor;
-    private Stroke lineStroke;
-    private float strokeWidth;
-    private boolean isFilled;
-    private boolean isCont;
+    private ShapeAttribute shapeAttribute;
 
     public JEllipse() {
         super();
-        paintColor = Color.BLACK;
-        fillColor = Color.BLACK;
-        strokeWidth = (float) 1.0;
-        initializeShapeProperties();
+        shapeAttribute = new ShapeAttribute();
     }
 
-    public JEllipse(Color paintColor) {
-        super();
-        this.paintColor = paintColor;
-        fillColor = Color.BLACK;
-        strokeWidth = (float) 1.0;
-        initializeShapeProperties();
-    }
-
-    
-    private void initializeShapeProperties()
-    {
-        lineStroke = new BasicStroke(strokeWidth);
-        isFilled = false;
-        
-    }
-    
     @Override
     public void setPaintColor(Color color) {
-        this.paintColor = color;
+        this.shapeAttribute.setPaintColor(color);
     }
 
     @Override
     public Color getPaintColor() {
-        return this.paintColor;
+        return this.shapeAttribute.getPaintColor();
     }
 
     @Override
     public void setStrokeWidth(float width) {
-        this.strokeWidth = width;
-        this.lineStroke = new BasicStroke(strokeWidth);
+        this.shapeAttribute.setStrokeWidth(width);
     }
 
     @Override
     public float getStrokeWidth() {
-        return this.strokeWidth;
+        return this.shapeAttribute.getStrokeWidth();
     }
 
     @Override
     public void setFillColor(Color color) {
-        this.fillColor = color;
+        this.shapeAttribute.setFillColor(color);
     }
 
     @Override
     public Color getFillColor() {
-        return this.fillColor;
+        return this.shapeAttribute.getFillColor();
     }
 
     @Override
     public void setFilled(boolean isFilled) {
-        this.isFilled = isFilled;
+        this.shapeAttribute.setFilled(isFilled);
     }
 
     @Override
     public boolean isFilled() {
-        return isFilled;
+        return this.shapeAttribute.isFilled();
     }
 
-   
     @Override
     public void setContinuous(boolean isContinuous) {
-        this.isCont = isContinuous;
+        this.shapeAttribute.setCont(isContinuous);
+
     }
 
     @Override
     public boolean isContinuous() {
-        return this.isCont;
+        return this.shapeAttribute.isCont();
     }
+
+    @Override
+    public void setGradient(GradientPaint p) {
+        this.shapeAttribute.setGradient(p);
+    }
+
+    @Override
+    public GradientPaint getGradient() {
+        return this.shapeAttribute.getGradient();
+    }
+
+    /**
+     * @return the isGradient
+     */
+    public boolean isGradient() {
+        return this.shapeAttribute.isGradient();
+    }
+
+    /**
+     * @param isGradient the isGradient to set
+     */
+    @Override
+    public void setIsGradient(boolean isGradient) {
+        this.shapeAttribute.setIsGradient(isGradient);
+    }
+
     @Override
     public boolean isContained(Point2D point) {
         if (this.contains(point)) {
@@ -120,19 +121,26 @@ public class JEllipse extends Ellipse2D.Float implements FillableShape {
 
     @Override
     public void paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D)g;
-        if(isCont) g2d.setStroke(this.lineStroke);
-        else if(!isCont) g2d.setStroke(new BasicStroke(this.strokeWidth,
-            BasicStroke.CAP_BUTT,
-            BasicStroke.JOIN_MITER,
-            10.0f,JShape.dash1, 0.0f));
-        g2d.setPaint(this.paintColor);
-        g2d.draw(this);
-        if(isFilled) 
-        {
-           g2d.setPaint(this.fillColor);
-           g2d.fill(this);
+        Graphics2D g2d = (Graphics2D) g;
+        if (shapeAttribute.isCont()) {
+            shapeAttribute.setShapeStroke(new BasicStroke(this.shapeAttribute.getStrokeWidth()));
+            g2d.setStroke(shapeAttribute.getShapeStroke());
+        } else if (!shapeAttribute.isCont()) {
+            shapeAttribute.setShapeStroke(new BasicStroke(this.shapeAttribute.getStrokeWidth(),
+                    BasicStroke.CAP_BUTT,
+                    BasicStroke.JOIN_MITER,
+                    10.0f, JShape.dash1, 0.0f));
+            g2d.setStroke(shapeAttribute.getShapeStroke());
         }
-
+        g2d.setPaint(this.shapeAttribute.getPaintColor());
+        g2d.draw(this);
+        if (shapeAttribute.isFilled()) {
+            g2d.setPaint(this.shapeAttribute.getFillColor());
+            g2d.fill(this);
+        } else if (shapeAttribute.isGradient()) {
+            System.out.println("Is Gradient");
+            g2d.setPaint(this.shapeAttribute.getGradient());
+            g2d.fill(this);
+        }
     }
 }

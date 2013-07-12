@@ -4,11 +4,10 @@
  */
 package es.ugr.smm.shapes;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 /**
@@ -32,6 +31,11 @@ public interface JShape extends Shape {
 
     void setFillColor(Color color);
     Color getFillColor();
+    
+    void setGradient(GradientPaint p);
+    GradientPaint getGradient();
+    
+    void setIsGradient(boolean isGradient);
     
     void setStrokeWidth(float width);
 

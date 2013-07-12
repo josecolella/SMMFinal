@@ -21,18 +21,19 @@ public class ShapeAttribute {
     private float strokeWidth;
     private boolean isFilled;
     private boolean isCont;
+    private boolean isGradient;
 
-    public ShapeAttribute()
-    {
+    public ShapeAttribute() {
         initializeAttributes();
     }
-    
+
     private void initializeAttributes() {
-        setPaintColor(Color.BLACK);
-        setFillColor(Color.BLACK);
-        setStrokeWidth(1.0F);
-        setFilled(false);
-        setCont(true);
+        this.paintColor = Color.BLACK;
+        this.fillColor = Color.BLACK;
+        this.strokeWidth = 1.0F;
+        this.isFilled = false;
+        this.isCont = true;
+        this.isGradient = false;
     }
 
     /**
@@ -120,6 +121,20 @@ public class ShapeAttribute {
     }
 
     /**
+     * @return the isGradient
+     */
+    public boolean isGradient() {
+        return isGradient;
+    }
+
+    /**
+     * @param isGradient the isGradient to set
+     */
+    public void setIsGradient(boolean isGradient) {
+        this.isGradient = isGradient;
+    }
+
+    /**
      * @return the isCont
      */
     public boolean isCont() {
@@ -132,6 +147,4 @@ public class ShapeAttribute {
     public void setCont(boolean isCont) {
         this.isCont = isCont;
     }
-    
-    
 }
