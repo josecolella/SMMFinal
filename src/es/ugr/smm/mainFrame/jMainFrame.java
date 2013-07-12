@@ -12,6 +12,7 @@ import es.ugr.smm.optionPane.jMultipleInputOptionPane;
 import es.ugr.smm.shapes.Shapes;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -21,7 +22,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
-import static java.awt.image.ImageObserver.WIDTH;
 import java.awt.image.LookupOp;
 import java.awt.image.LookupTable;
 import java.awt.image.RescaleOp;
@@ -80,6 +80,7 @@ public class jMainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jGradientDirectionGroup = new javax.swing.ButtonGroup();
         jContinuityGroup = new javax.swing.ButtonGroup();
         jFillButtonGroup = new javax.swing.ButtonGroup();
         jShapePaintGroup = new javax.swing.ButtonGroup();
@@ -135,7 +136,8 @@ public class jMainFrame extends javax.swing.JFrame {
         jBackGradientButton = new javax.swing.JButton();
         jGradientDirectionPanel = new javax.swing.JPanel();
         jHorizontalButton = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jVerticalButton = new javax.swing.JRadioButton();
+        jFinishGradientButton = new javax.swing.JButton();
         jCentralPanel = new javax.swing.JPanel();
         jDrawingToolBar = new javax.swing.JToolBar();
         jTabbedPane = new javax.swing.JTabbedPane();
@@ -623,20 +625,35 @@ public class jMainFrame extends javax.swing.JFrame {
 
         jFillChooserPanel.add(jDefaultColorPanel1);
 
+        jGradientPanel.setPreferredSize(new java.awt.Dimension(200, 48));
         jGradientPanel.setLayout(new javax.swing.BoxLayout(jGradientPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         jFrontGradientPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Color de Frente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jFrontGradientPanel.setMinimumSize(new java.awt.Dimension(25, 25));
+        jFrontGradientPanel.setPreferredSize(new java.awt.Dimension(25, 25));
         jFrontGradientPanel.setLayout(new java.awt.BorderLayout());
 
         jFrontGradientButton.setBackground(new java.awt.Color(0, 0, 0));
+        jFrontGradientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFrontGradientButtonActionPerformed(evt);
+            }
+        });
         jFrontGradientPanel.add(jFrontGradientButton, java.awt.BorderLayout.CENTER);
 
         jGradientPanel.add(jFrontGradientPanel);
 
         jBackGradientPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Color de Fondo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jBackGradientPanel.setMinimumSize(new java.awt.Dimension(25, 25));
+        jBackGradientPanel.setPreferredSize(new java.awt.Dimension(25, 25));
         jBackGradientPanel.setLayout(new java.awt.BorderLayout());
 
         jBackGradientButton.setBackground(new java.awt.Color(0, 0, 0));
+        jBackGradientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBackGradientButtonActionPerformed(evt);
+            }
+        });
         jBackGradientPanel.add(jBackGradientButton, java.awt.BorderLayout.CENTER);
 
         jGradientPanel.add(jBackGradientPanel);
@@ -644,13 +661,28 @@ public class jMainFrame extends javax.swing.JFrame {
         jGradientDirectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dirección del Degradado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
         jGradientDirectionPanel.setLayout(new java.awt.GridLayout(1, 0));
 
+        jGradientDirectionGroup.add(jHorizontalButton);
         jHorizontalButton.setText("Horizontal");
+        jHorizontalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jHorizontalButtonActionPerformed(evt);
+            }
+        });
         jGradientDirectionPanel.add(jHorizontalButton);
 
-        jRadioButton2.setText("Vertical");
-        jGradientDirectionPanel.add(jRadioButton2);
+        jGradientDirectionGroup.add(jVerticalButton);
+        jVerticalButton.setText("Vertical");
+        jVerticalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jVerticalButtonActionPerformed(evt);
+            }
+        });
+        jGradientDirectionPanel.add(jVerticalButton);
 
         jGradientPanel.add(jGradientDirectionPanel);
+
+        jFinishGradientButton.setText("Finalizar");
+        jGradientPanel.add(jFinishGradientButton);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1050, 780));
@@ -1676,8 +1708,55 @@ public class jMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMoreColorButton1ActionPerformed
 
     private void jGradientFillRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGradientFillRadioButtonActionPerformed
-        this.createGradientTab();
+        jImageInternalWindow vi;
+        if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
+            this.createGradientTab();
+            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
+            vi.getImagePanel().setShapeFilled(false);
+            vi.getImagePanel().setIsGradient(true);
+            System.out.println("It's true");
+        }
+
     }//GEN-LAST:event_jGradientFillRadioButtonActionPerformed
+
+    private void jFrontGradientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFrontGradientButtonActionPerformed
+        Color c = JColorChooser.showDialog(this, "Elegir el color frontal del relleno degradado", Color.BLACK);
+        this.jFrontGradientButton.setBackground(c);
+        this.jTabbedPane.setSelectedComponent(jGradientPanel);
+        this.jTabbedPane.validate();
+    }//GEN-LAST:event_jFrontGradientButtonActionPerformed
+
+    private void jBackGradientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackGradientButtonActionPerformed
+        Color c = JColorChooser.showDialog(this, "Elegir el color de fondo del relleno degradado", Color.BLACK);
+        this.jBackGradientButton.setBackground(c);
+        this.jTabbedPane.setSelectedComponent(jGradientPanel);
+        this.jTabbedPane.validate();
+    }//GEN-LAST:event_jBackGradientButtonActionPerformed
+
+    private boolean isFrontBackGradientEqual() {
+        boolean isEqual = false;
+        if (this.jFrontGradientButton.getBackground() == this.jBackGradientButton.getBackground()) {
+            isEqual = true;
+            JOptionPane.showMessageDialog(null, "No puede tener el mismo color frontal\ny de fondo en el relleno degradado", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        return isEqual;
+    }
+
+    private void jHorizontalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jHorizontalButtonActionPerformed
+        jImageInternalWindow vi;
+        if (!isFrontBackGradientEqual() && this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
+            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
+            vi.getImagePanel().setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), vi.getImagePanel().getWidth(), 0, this.jBackGradientButton.getBackground()));
+        }
+    }//GEN-LAST:event_jHorizontalButtonActionPerformed
+
+    private void jVerticalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jVerticalButtonActionPerformed
+        jImageInternalWindow vi;
+        if (!isFrontBackGradientEqual() && this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
+            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
+            vi.getImagePanel().setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), 0, vi.getImagePanel().getHeight(), this.jBackGradientButton.getBackground()));
+        }
+    }//GEN-LAST:event_jVerticalButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1750,9 +1829,11 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jFillColorPanel;
     private javax.swing.JPanel jFillPanel;
     private javax.swing.JRadioButton jFillSolidRadioButton;
+    private javax.swing.JButton jFinishGradientButton;
     private javax.swing.JButton jFreePathButton;
     private javax.swing.JButton jFrontGradientButton;
     private javax.swing.JPanel jFrontGradientPanel;
+    private javax.swing.ButtonGroup jGradientDirectionGroup;
     private javax.swing.JPanel jGradientDirectionPanel;
     private javax.swing.JRadioButton jGradientFillRadioButton;
     private javax.swing.JPanel jGradientPanel;
@@ -1786,7 +1867,6 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JButton jPointButton;
     private javax.swing.JPanel jPropertiesPanel;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JMenuItem jRecordMenuItem;
     private javax.swing.JButton jRectangleButton;
     private javax.swing.JButton jRedColorButton;
@@ -1802,6 +1882,7 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton jTwoSeventyDegRotationButton;
+    private javax.swing.JRadioButton jVerticalButton;
     private javax.swing.JCheckBoxMenuItem jViewFormsMenuItem;
     private javax.swing.JMenu jViewMenu;
     private javax.swing.JButton jYellowColorButton;
