@@ -51,7 +51,7 @@
                     <TitledBorder justification="2" position="1" title="Color del Trazo"/>
                   </Border>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Color para dibujar la forma"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[25, 75]"/>
                 </Property>
@@ -67,6 +67,7 @@
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Color para dibujar la forma"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>
                     </Property>
@@ -89,7 +90,7 @@
                     <TitledBorder justification="2" position="1" title="Color del Relleno"/>
                   </Border>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Color para el relleno de la forma \u005cn(Solo valido si esta presenta la opci&#xf3;n de relleno)" containsInvalidXMLChars="true"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[25, 75]"/>
                 </Property>
@@ -105,6 +106,7 @@
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Color para el relleno de la forma \u005cn(Solo valido si esta presenta la opci&#xf3;n de relleno)" containsInvalidXMLChars="true"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>
                     </Property>
@@ -140,7 +142,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="jPanel1">
+            <Container class="javax.swing.JPanel" name="jStrokeSpinnerPanel">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -160,11 +162,13 @@
                   </Properties>
                   <Events>
                     <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jStrokeSpinnerStateChanged"/>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jStrokeSpinnerFocusGained"/>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jStrokeSpinnerFocusLost"/>
                   </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel6">
+            <Container class="javax.swing.JPanel" name="jContinuityPanel">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -185,6 +189,7 @@
                       <ComponentRef name="jContinuityGroup"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Cont&#xed;nuo"/>
+                    <Property name="toolTipText" type="java.lang.String" value="L&#xed;neas Continuas"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jContinuityButtonActionPerformed"/>
@@ -196,6 +201,7 @@
                       <ComponentRef name="jContinuityGroup"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Discontinuo"/>
+                    <Property name="toolTipText" type="java.lang.String" value="L&#xed;neas Discontinuas"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jDiscontinuityButtonActionPerformed"/>
@@ -618,6 +624,7 @@
             <Component class="javax.swing.JButton" name="jMoreColorButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Mas colores..."/>
+                <Property name="toolTipText" type="java.lang.String" value="Opci&#xf3;n de m&#xe1;s colores..."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMoreColorButtonActionPerformed"/>
@@ -830,6 +837,7 @@
             <Component class="javax.swing.JButton" name="jMoreColorButton1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Mas colores..."/>
+                <Property name="toolTipText" type="java.lang.String" value="Opci&#xf3;n de m&#xe1;s colores..."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMoreColorButton1ActionPerformed"/>
@@ -954,11 +962,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jFinishGradientButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Finalizar"/>
-          </Properties>
-        </Component>
       </SubComponents>
     </Container>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar">

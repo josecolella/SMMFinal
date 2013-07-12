@@ -138,7 +138,6 @@ public class JEllipse extends Ellipse2D.Float implements JShape {
             g2d.setPaint(this.shapeAttribute.getFillColor());
             g2d.fill(this);
         } else if (shapeAttribute.isGradient()) {
-            System.out.println("Is Gradient");
             g2d.setPaint(this.shapeAttribute.getGradient());
             g2d.fill(this);
         }

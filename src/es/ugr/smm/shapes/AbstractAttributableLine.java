@@ -154,7 +154,6 @@ public abstract class AbstractAttributableLine extends Line2D.Float implements J
         }
         else if(shapeAttribute.isGradient())
         {
-            System.out.println("Is Gradient");
             g2d.setPaint(this.shapeAttribute.getGradient());
             g2d.fill(this);
         }

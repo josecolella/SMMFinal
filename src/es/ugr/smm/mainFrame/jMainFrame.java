@@ -9,6 +9,7 @@ import es.ugr.smm.internalWindow.VentanaInternaGrabacion;
 import es.ugr.smm.internalWindow.VentanaInternaJMFPlayer;
 import es.ugr.smm.internalWindow.jImageInternalWindow;
 import es.ugr.smm.optionPane.jMultipleInputOptionPane;
+import es.ugr.smm.shapes.JShape;
 import es.ugr.smm.shapes.Shapes;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -48,8 +49,6 @@ import javax.swing.JOptionPane;
 public class jMainFrame extends javax.swing.JFrame {
 
     private BufferedImage imgSource;
-    private Color strokeColor;
-    private Color fillColor;
 
     /**
      * Creates new form jMainFrame
@@ -69,6 +68,7 @@ public class jMainFrame extends javax.swing.JFrame {
         //this.jTabbedPane.addTab("Operaciones sobre Imágenes", imageIcon, jImageManipulationPanel, "Operaciones para manipular imágenes");
         this.jContinuityButton.setSelected(true);
         this.jNoFillRadioButton.setSelected(true);
+        this.validate();
     }
 
     /**
@@ -92,9 +92,9 @@ public class jMainFrame extends javax.swing.JFrame {
         jFillColorPanel = new javax.swing.JPanel();
         jFillColorButton = new javax.swing.JButton();
         jStrokePanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jStrokeSpinnerPanel = new javax.swing.JPanel();
         jStrokeSpinner = new javax.swing.JSpinner();
-        jPanel6 = new javax.swing.JPanel();
+        jContinuityPanel = new javax.swing.JPanel();
         jContinuityButton = new javax.swing.JRadioButton();
         jDiscontinuityButton = new javax.swing.JRadioButton();
         jPropertiesPanel = new javax.swing.JPanel();
@@ -137,7 +137,6 @@ public class jMainFrame extends javax.swing.JFrame {
         jGradientDirectionPanel = new javax.swing.JPanel();
         jHorizontalButton = new javax.swing.JRadioButton();
         jVerticalButton = new javax.swing.JRadioButton();
-        jFinishGradientButton = new javax.swing.JButton();
         jCentralPanel = new javax.swing.JPanel();
         jDrawingToolBar = new javax.swing.JToolBar();
         jTabbedPane = new javax.swing.JTabbedPane();
@@ -186,12 +185,13 @@ public class jMainFrame extends javax.swing.JFrame {
         jColorPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jStrokeColorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Color del Trazo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
-        jStrokeColorPanel.setToolTipText("Color para dibujar la forma");
+        jStrokeColorPanel.setToolTipText("");
         jStrokeColorPanel.setMinimumSize(new java.awt.Dimension(25, 75));
         jStrokeColorPanel.setPreferredSize(new java.awt.Dimension(25, 75));
         jStrokeColorPanel.setLayout(new java.awt.BorderLayout());
 
         jStrokeColorButton.setBackground(new java.awt.Color(0, 0, 0));
+        jStrokeColorButton.setToolTipText("Color para dibujar la forma");
         jStrokeColorButton.setBorder(null);
         jStrokeColorButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,12 +203,13 @@ public class jMainFrame extends javax.swing.JFrame {
         jColorPanel.add(jStrokeColorPanel);
 
         jFillColorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Color del Relleno", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
-        jFillColorPanel.setToolTipText("Color para el relleno de la forma \\n(Solo valido si esta presenta la opción de relleno)");
+        jFillColorPanel.setToolTipText("");
         jFillColorPanel.setMinimumSize(new java.awt.Dimension(25, 75));
         jFillColorPanel.setPreferredSize(new java.awt.Dimension(25, 75));
         jFillColorPanel.setLayout(new java.awt.BorderLayout());
 
         jFillColorButton.setBackground(new java.awt.Color(0, 0, 0));
+        jFillColorButton.setToolTipText("Color para el relleno de la forma \\n(Solo valido si esta presenta la opción de relleno)");
         jFillColorButton.setBorder(null);
         jFillColorButton.setEnabled(false);
         jFillColorButton.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +228,7 @@ public class jMainFrame extends javax.swing.JFrame {
         jStrokePanel.setPreferredSize(new java.awt.Dimension(350, 125));
         jStrokePanel.setLayout(new javax.swing.BoxLayout(jStrokePanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Grosor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jStrokeSpinnerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Grosor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
 
         jStrokeSpinner.setToolTipText("Grosor");
         jStrokeSpinner.setPreferredSize(new java.awt.Dimension(60, 45));
@@ -236,33 +237,43 @@ public class jMainFrame extends javax.swing.JFrame {
                 jStrokeSpinnerStateChanged(evt);
             }
         });
-        jPanel1.add(jStrokeSpinner);
+        jStrokeSpinner.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jStrokeSpinnerFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jStrokeSpinnerFocusLost(evt);
+            }
+        });
+        jStrokeSpinnerPanel.add(jStrokeSpinner);
 
-        jStrokePanel.add(jPanel1);
+        jStrokePanel.add(jStrokeSpinnerPanel);
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Continuidad del Trazo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
-        jPanel6.setToolTipText("");
-        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
+        jContinuityPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Continuidad del Trazo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jContinuityPanel.setToolTipText("");
+        jContinuityPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jContinuityGroup.add(jContinuityButton);
         jContinuityButton.setText("Contínuo");
+        jContinuityButton.setToolTipText("Líneas Continuas");
         jContinuityButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jContinuityButtonActionPerformed(evt);
             }
         });
-        jPanel6.add(jContinuityButton);
+        jContinuityPanel.add(jContinuityButton);
 
         jContinuityGroup.add(jDiscontinuityButton);
         jDiscontinuityButton.setText("Discontinuo");
+        jDiscontinuityButton.setToolTipText("Líneas Discontinuas");
         jDiscontinuityButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jDiscontinuityButtonActionPerformed(evt);
             }
         });
-        jPanel6.add(jDiscontinuityButton);
+        jContinuityPanel.add(jDiscontinuityButton);
 
-        jStrokePanel.add(jPanel6);
+        jStrokePanel.add(jContinuityPanel);
 
         jAttributesPanel.add(jStrokePanel);
 
@@ -493,6 +504,7 @@ public class jMainFrame extends javax.swing.JFrame {
         jDefaultColorPanel.add(jGreenColorButton);
 
         jMoreColorButton.setText("Mas colores...");
+        jMoreColorButton.setToolTipText("Opción de más colores...");
         jMoreColorButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMoreColorButtonActionPerformed(evt);
@@ -616,6 +628,7 @@ public class jMainFrame extends javax.swing.JFrame {
         jDefaultColorPanel1.add(jGreenColorButton1);
 
         jMoreColorButton1.setText("Mas colores...");
+        jMoreColorButton1.setToolTipText("Opción de más colores...");
         jMoreColorButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMoreColorButton1ActionPerformed(evt);
@@ -680,9 +693,6 @@ public class jMainFrame extends javax.swing.JFrame {
         jGradientDirectionPanel.add(jVerticalButton);
 
         jGradientPanel.add(jGradientDirectionPanel);
-
-        jFinishGradientButton.setText("Finalizar");
-        jGradientPanel.add(jFinishGradientButton);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1050, 780));
@@ -1009,6 +1019,7 @@ public class jMainFrame extends javax.swing.JFrame {
         vi.setTitle("Nueva");
         jDesktopPane.add(vi);
         vi.getImagePanel().repaint();
+        this.validate();
         vi.setVisible(true);
     }//GEN-LAST:event_jNewMenuItemActionPerformed
 
@@ -1074,6 +1085,7 @@ public class jMainFrame extends javax.swing.JFrame {
         dlg.addChoosableFileFilter(new PNGImageFilter());
         int resp = dlg.showSaveDialog(this);
         if (resp == JFileChooser.APPROVE_OPTION) {
+            String filename = dlg.getSelectedFile().getName();
             String ext = "";
             String extension = dlg.getFileFilter().getDescription();
 
@@ -1091,10 +1103,12 @@ public class jMainFrame extends javax.swing.JFrame {
 
             try {
                 File f = dlg.getSelectedFile();
-                //El siguiente codigo permite conocer  la
+                //El siguiente codigo permite conocer  la ventana activa
                 jImageInternalWindow vi = (jImageInternalWindow) jDesktopPane.getSelectedFrame();
                 BufferedImage img = vi.getImagePanel().getImage();
                 ImageIO.write(img, "jpg", f);
+                vi.setTitle(filename);
+                this.validate();
 
             } catch (Exception ex) {
                 ex.getMessage();
@@ -1396,22 +1410,19 @@ public class jMainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jZoomOutButtonActionPerformed
 
-    private void jEditCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jEditCheckBoxItemStateChanged
-        jImageInternalWindow vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-        if (vi != null) {
-            if (evt.getStateChange() == ItemEvent.SELECTED) {
-                vi.getImagePanel().setIsEdit(true);
-            } else if (evt.getStateChange() == ItemEvent.DESELECTED) {
-                vi.getImagePanel().setIsEdit(false);
-            }
-        }
-    }//GEN-LAST:event_jEditCheckBoxItemStateChanged
-
     private void jStrokeSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jStrokeSpinnerStateChanged
         jImageInternalWindow vi;
         if (jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             vi = (jImageInternalWindow) (jDesktopPane.getSelectedFrame());
-            vi.getImagePanel().setStrokeWidth((Integer) jStrokeSpinner.getValue());
+
+            if (vi.getImagePanel().isEditable()) {
+                JShape shape = vi.getImagePanel().getSelectedShape();
+                if (shape != null) {
+                    shape.setStrokeWidth((Integer) jStrokeSpinner.getValue());
+                }
+            } else {
+                vi.getImagePanel().setStrokeWidth((Integer) jStrokeSpinner.getValue());
+            }
             vi.repaint();
         } else {
             //jStrokeSpinner.setValue(0);
@@ -1459,6 +1470,28 @@ public class jMainFrame extends javax.swing.JFrame {
             if (this.jFillColorButton.isEnabled()) {
                 vi.getImagePanel().setCurrentFillColor(this.jFillColorButton.getBackground());
             }
+            if (vi.getImagePanel().isEditable()) {
+                JShape shape = vi.getImagePanel().getSelectedShape();
+                if (shape != null) {
+                    shape.setPaintColor(this.jStrokeColorButton.getBackground());
+                    if (this.jFillColorButton.isEnabled()) {
+                        shape.setFillColor(this.jFillColorButton.getBackground());
+                    }
+                }
+                vi.getImagePanel().setFocusable(true);
+                vi.repaint();
+            } else if (vi.getImagePanel().isFilled()) {
+                JShape shape = vi.getImagePanel().getSelectedShape();
+                if (shape != null) {
+                    shape.setPaintColor(this.jStrokeColorButton.getBackground());
+                    if (this.jFillColorButton.isEnabled()) {
+                        shape.setFillColor(this.jFillColorButton.getBackground());
+                    }
+                }
+                vi.getImagePanel().setFocusable(true);
+                vi.repaint();
+            }
+
         } else {
             JOptionPane.showMessageDialog(null, "Solo se puede seleccionar el color para ventanas de Imágenes", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -1605,17 +1638,31 @@ public class jMainFrame extends javax.swing.JFrame {
             this.jFillColorButton.setEnabled(false);
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             vi.getImagePanel().setShapeFilled(false);
-
+            if(this.jFillColorButton.isEnabled())
+                this.jFillColorButton.setEnabled(false);
+            vi.getImagePanel().setIsGradient(false);
+            if (vi.getImagePanel().isEditable()) {
+                JShape shape = vi.getImagePanel().getSelectedShape();
+                if (shape != null) {
+                    shape.setFilled(false);
+                    shape.setIsGradient(false);
+                    vi.repaint();
+                }
+            }
         }
+
     }//GEN-LAST:event_jNoFillRadioButtonActionPerformed
 
     private void jFillSolidRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFillSolidRadioButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             this.jFillColorButton.setEnabled(true);
+            this.jFillColorButton.setFocusable(true);
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             vi.getImagePanel().setShapeFilled(true);
-
+            if (vi.getImagePanel().isGradient()) {
+                vi.getImagePanel().setIsGradient(false);
+            }
 
         }
     }//GEN-LAST:event_jFillSolidRadioButtonActionPerformed
@@ -1648,6 +1695,7 @@ public class jMainFrame extends javax.swing.JFrame {
     private void jStrokeColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStrokeColorButtonActionPerformed
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
+            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             createColorTab();
         }
     }//GEN-LAST:event_jStrokeColorButtonActionPerformed
@@ -1666,7 +1714,13 @@ public class jMainFrame extends javax.swing.JFrame {
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             createFillTab();
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-            //vi.getImagePanel().setCurrentStrokeColor(c);
+            if (vi.getImagePanel().isEditable()) {
+                JShape shape = vi.getImagePanel().getSelectedShape();
+                if (shape != null) {
+                    shape.setFilled(true);
+                    shape.setIsGradient(false);
+                }
+            }
         }
     }//GEN-LAST:event_jFillColorButtonActionPerformed
 
@@ -1712,9 +1766,11 @@ public class jMainFrame extends javax.swing.JFrame {
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             this.createGradientTab();
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-            vi.getImagePanel().setShapeFilled(false);
+            if (vi.getImagePanel().isFilled()) {
+                vi.getImagePanel().setShapeFilled(false);
+            }
             vi.getImagePanel().setIsGradient(true);
-            System.out.println("It's true");
+
         }
 
     }//GEN-LAST:event_jGradientFillRadioButtonActionPerformed
@@ -1746,7 +1802,17 @@ public class jMainFrame extends javax.swing.JFrame {
         jImageInternalWindow vi;
         if (!isFrontBackGradientEqual() && this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-            vi.getImagePanel().setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), vi.getImagePanel().getWidth(), 0, this.jBackGradientButton.getBackground()));
+            if (vi.getImagePanel().isEditable()) {
+                JShape shape = vi.getImagePanel().getSelectedShape();
+                if (shape != null) {
+                    shape.setFilled(false);
+                    shape.setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), vi.getImagePanel().getWidth(), 0, this.jBackGradientButton.getBackground()));
+                    vi.repaint();
+                    System.out.println("Hello");
+                }
+            } else {
+                vi.getImagePanel().setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), vi.getImagePanel().getWidth(), 0, this.jBackGradientButton.getBackground()));
+            }
         }
     }//GEN-LAST:event_jHorizontalButtonActionPerformed
 
@@ -1754,9 +1820,45 @@ public class jMainFrame extends javax.swing.JFrame {
         jImageInternalWindow vi;
         if (!isFrontBackGradientEqual() && this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
+            if (vi.getImagePanel().isEditable()) {
+                JShape shape = vi.getImagePanel().getSelectedShape();
+                if (shape != null) {
+                    shape.setFilled(false);
+                    shape.setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), 0, vi.getImagePanel().getHeight(), this.jBackGradientButton.getBackground()));
+                    
+                    vi.getImagePanel().repaint();
+                }
+            }
             vi.getImagePanel().setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), 0, vi.getImagePanel().getHeight(), this.jBackGradientButton.getBackground()));
         }
     }//GEN-LAST:event_jVerticalButtonActionPerformed
+
+    private void jEditCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jEditCheckBoxItemStateChanged
+        jImageInternalWindow vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
+        if (vi != null) {
+            if (evt.getStateChange() == ItemEvent.SELECTED) {
+                vi.getImagePanel().setIsEdit(true);
+            } else if (evt.getStateChange() == ItemEvent.DESELECTED) {
+                vi.getImagePanel().setIsEdit(false);
+            }
+        }
+    }//GEN-LAST:event_jEditCheckBoxItemStateChanged
+
+    private void jStrokeSpinnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jStrokeSpinnerFocusLost
+        this.jStrokeSpinner.setValue(new Integer(0));
+    }//GEN-LAST:event_jStrokeSpinnerFocusLost
+
+    private void jStrokeSpinnerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jStrokeSpinnerFocusGained
+        jImageInternalWindow vi;
+        if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
+            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
+            if (vi != null && vi.getImagePanel().isEditable()) {
+                JShape shape = vi.getImagePanel().getSelectedShape();
+                this.jStrokeSpinner.setValue(shape.getStrokeWidth());
+            }
+        }
+
+    }//GEN-LAST:event_jStrokeSpinnerFocusGained
 
     /**
      * @param args the command line arguments
@@ -1812,6 +1914,7 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JRadioButton jContinuityButton;
     private javax.swing.ButtonGroup jContinuityGroup;
+    private javax.swing.JPanel jContinuityPanel;
     private javax.swing.JButton jDarknessButton;
     private javax.swing.JPanel jDefaultColorPanel;
     private javax.swing.JPanel jDefaultColorPanel1;
@@ -1829,7 +1932,6 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jFillColorPanel;
     private javax.swing.JPanel jFillPanel;
     private javax.swing.JRadioButton jFillSolidRadioButton;
-    private javax.swing.JButton jFinishGradientButton;
     private javax.swing.JButton jFreePathButton;
     private javax.swing.JButton jFrontGradientButton;
     private javax.swing.JPanel jFrontGradientPanel;
@@ -1858,12 +1960,10 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jNormalContrastButton;
     private javax.swing.JButton jOneEightyDegRotationButton;
     private javax.swing.JMenuItem jOpenMenuItem;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JButton jPointButton;
     private javax.swing.JPanel jPropertiesPanel;
@@ -1879,6 +1979,7 @@ public class jMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jStrokeColorPanel;
     private javax.swing.JPanel jStrokePanel;
     private javax.swing.JSpinner jStrokeSpinner;
+    private javax.swing.JPanel jStrokeSpinnerPanel;
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton jTwoSeventyDegRotationButton;

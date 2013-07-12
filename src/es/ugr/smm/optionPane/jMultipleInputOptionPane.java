@@ -21,8 +21,10 @@ public class jMultipleInputOptionPane {
     private Integer height;
     private Integer width;
     private boolean isCancelled;
-    
+
     public jMultipleInputOptionPane() {
+        this.height = 0;
+        this.width = 0;
         this.heightText = new JTextField(3);
         this.widthText = new JTextField(3);
         this.sizePanel = new JPanel();
@@ -33,28 +35,34 @@ public class jMultipleInputOptionPane {
         sizePanel.add(widthText);
         result = JOptionPane.showConfirmDialog(null, sizePanel,
                 "Insertar Altura y Anchura de Imágen deseada", JOptionPane.OK_CANCEL_OPTION);
+
         if (result == JOptionPane.OK_OPTION) {
-            this.height = Integer.parseInt(heightText.getText());
-            this.width = Integer.parseInt(widthText.getText());
-            isCancelled = false;
-        }
-        else
+            do {
+                try {
+                    this.height = Integer.parseInt(heightText.getText());
+                    this.width = Integer.parseInt(widthText.getText());
+                    isCancelled = false;
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "No se puede dejar vacios los campos", "Error",JOptionPane.ERROR_MESSAGE);
+                    result = JOptionPane.showConfirmDialog(null, sizePanel,
+                            "Insertar Altura y Anchura de Imágen deseada", JOptionPane.OK_CANCEL_OPTION);
+                }
+            } while (height == 0 || width == 0);
+        } else {
             isCancelled = true;
-        
+        }
+
     }
-    
-    public Integer getWidth()
-    {
+
+    public Integer getWidth() {
         return this.width;
     }
-    
-    public Integer getHeight()
-    {
+
+    public Integer getHeight() {
         return this.height;
     }
-    
-    public boolean isCancelled()
-    {
+
+    public boolean isCancelled() {
         return isCancelled;
     }
 }

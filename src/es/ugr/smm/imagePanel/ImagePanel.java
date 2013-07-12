@@ -19,6 +19,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  * ImagePanel representa el lienzo de imágenes donde se crean imágenes de
@@ -65,10 +66,10 @@ public class ImagePanel extends javax.swing.JPanel {
     private Graphics2D g2dImg;
     private List<JShape> jShapeArray;
     private JShape currentShape;
+    private JShape currentEditShape;
     private Point2D p;
     private boolean isEditable;
     private ShapeAttribute shapeAttribute;
-   
 
     /**
      * Construye un ImagePanel e inicializa sus componentes
@@ -79,7 +80,7 @@ public class ImagePanel extends javax.swing.JPanel {
         this.height = DEFAULT_HEIGHT;
         this.width = DEFAULT_WIDTH;
         initializePanelAttributes();
-   
+
     }
 
     /**
@@ -92,29 +93,43 @@ public class ImagePanel extends javax.swing.JPanel {
      */
     public ImagePanel(Integer height, Integer width) {
         initComponents();
+        shapeAttribute = new ShapeAttribute();
         this.height = height;
         this.width = width;
         initializePanelAttributes();
-   
+
     }
 
     private void initializePanelAttributes() {
-        defaultImage = new BufferedImage(this.height, this.width, BufferedImage.TYPE_INT_ARGB);
+        defaultImage = new BufferedImage(this.height, this.width, BufferedImage.TYPE_INT_RGB);
         jShapeArray = new ArrayList();
         currentDrawingShape = Shapes.POINT;
         currentShape = new JPoint(new Point2D.Float(-1, -1), new Point2D.Float(-1, -1));
+        currentEditShape = null;
         isEditable = false;
+    }
+
+    public JShape getSelectedShape() {
+        if (this.currentEditShape != null) {
+            return this.currentEditShape;
+        }
+        return null;
     }
 
     //Devuelve la forma que esta contenida en el {@link Point2D} pasado
     //parametro
-    private JShape getSelectedShape(Point2D p) {
+    public JShape getSelectedShape(Point2D p) {
         for (JShape s : jShapeArray) {
             if (s.isContained(p)) {
+                currentEditShape = s;
                 return s;
             }
         }
         return null;
+    }
+
+    public Point2D getPoint() {
+        return this.p;
     }
 
     /**
@@ -153,6 +168,10 @@ public class ImagePanel extends javax.swing.JPanel {
         this.shapeAttribute.setIsGradient(isGradient);
     }
 
+    public boolean isGradient() {
+        return this.shapeAttribute.isGradient();
+    }
+
     /**
      * Devuelve el flotante que representa la anchura del Trazo
      *
@@ -184,6 +203,10 @@ public class ImagePanel extends javax.swing.JPanel {
         this.isEditable = isEdit;
     }
 
+    public boolean isEditable() {
+        return this.isEditable;
+    }
+
     /**
      * Asigna si la forma actual esta rellena
      *
@@ -191,6 +214,10 @@ public class ImagePanel extends javax.swing.JPanel {
      */
     public void setShapeFilled(boolean isShapeFilled) {
         this.shapeAttribute.setFilled(isShapeFilled);
+    }
+
+    public boolean isFilled() {
+        return this.shapeAttribute.isFilled();
     }
 
     /**
@@ -296,6 +323,7 @@ public class ImagePanel extends javax.swing.JPanel {
 
         } else if (image != null) {
             g2dImg.drawImage(image, 0, 0, this);
+            g2dImg = image.createGraphics();
         }
 
         //Codigo para pintar Shapes
@@ -350,7 +378,12 @@ public class ImagePanel extends javax.swing.JPanel {
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         p = evt.getPoint();
         if (isEditable) {
-            currentShape = this.getSelectedShape(evt.getPoint());
+            try {
+                currentShape = this.getSelectedShape(evt.getPoint());
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna forma", "Error en Seleccionar", JOptionPane.ERROR_MESSAGE);
+            }
+
         } else {
             currentShape = (JShape) createShape(p, p);
             jShapeArray.add(currentShape);
@@ -366,7 +399,11 @@ public class ImagePanel extends javax.swing.JPanel {
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         if (isEditable) {
-            currentShape.setLocation(evt.getPoint());
+            try {
+                currentShape.setLocation(evt.getPoint());
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna forma", "Error en Seleccionar", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (currentShape.getClass() != JPoint.class) {
             updateShape(p, evt.getPoint());
         }
