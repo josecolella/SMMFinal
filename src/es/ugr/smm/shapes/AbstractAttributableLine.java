@@ -6,6 +6,7 @@ package es.ugr.smm.shapes;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
@@ -22,13 +23,11 @@ public abstract class AbstractAttributableLine extends Line2D.Float implements J
     protected AbstractAttributableLine() {
         super();
         shapeAttribute = new ShapeAttribute();
-       
     }
 
     protected AbstractAttributableLine(Point2D p1, Point2D p2) {
         super(p1, p2);
         shapeAttribute = new ShapeAttribute();
-        
     }
 
     /**
@@ -90,6 +89,22 @@ public abstract class AbstractAttributableLine extends Line2D.Float implements J
     }
 
     @Override
+    public void setGradient(GradientPaint p) {
+        this.shapeAttribute.setGradient(p);
+    }
+
+    @Override
+    public GradientPaint getGradient()
+    {
+        return this.shapeAttribute.getGradient();
+    }
+    
+    @Override
+    public void setIsGradient(boolean isGradient)
+    {
+        this.shapeAttribute.setIsGradient(isGradient);
+    }
+    @Override
     public void setContinuous(boolean isContinuous) {
         this.shapeAttribute.setCont(isContinuous);
     }
@@ -113,7 +128,7 @@ public abstract class AbstractAttributableLine extends Line2D.Float implements J
 
     @Override
     abstract public void setLocation(Point2D pos);
-    
+
     @Override
     abstract public void update(Point2D p1, Point2D p2);
 
@@ -135,6 +150,12 @@ public abstract class AbstractAttributableLine extends Line2D.Float implements J
         g2d.draw(this);
         if (shapeAttribute.isFilled()) {
             g2d.setPaint(this.shapeAttribute.getFillColor());
+            g2d.fill(this);
+        }
+        else if(shapeAttribute.isGradient())
+        {
+            System.out.println("Is Gradient");
+            g2d.setPaint(this.shapeAttribute.getGradient());
             g2d.fill(this);
         }
 
