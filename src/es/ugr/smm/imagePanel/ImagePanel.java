@@ -11,6 +11,7 @@ import es.ugr.smm.shapes.JPoint;
 import es.ugr.smm.shapes.ShapeAttribute;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
@@ -67,6 +68,7 @@ public class ImagePanel extends javax.swing.JPanel {
     private Point2D p;
     private boolean isEditable;
     private ShapeAttribute shapeAttribute;
+   
 
     /**
      * Construye un ImagePanel e inicializa sus componentes
@@ -77,7 +79,7 @@ public class ImagePanel extends javax.swing.JPanel {
         this.height = DEFAULT_HEIGHT;
         this.width = DEFAULT_WIDTH;
         initializePanelAttributes();
-
+   
     }
 
     /**
@@ -93,23 +95,19 @@ public class ImagePanel extends javax.swing.JPanel {
         this.height = height;
         this.width = width;
         initializePanelAttributes();
-        
+   
     }
-    
-    private void initializePanelAttributes()
-    {
+
+    private void initializePanelAttributes() {
         defaultImage = new BufferedImage(this.height, this.width, BufferedImage.TYPE_INT_ARGB);
         jShapeArray = new ArrayList();
         currentDrawingShape = Shapes.POINT;
         currentShape = new JPoint(new Point2D.Float(-1, -1), new Point2D.Float(-1, -1));
         isEditable = false;
     }
-    
-    
-    
+
     //Devuelve la forma que esta contenida en el {@link Point2D} pasado
     //parametro
-
     private JShape getSelectedShape(Point2D p) {
         for (JShape s : jShapeArray) {
             if (s.isContained(p)) {
@@ -145,6 +143,14 @@ public class ImagePanel extends javax.swing.JPanel {
 
     public Color getCurrentFillColor() {
         return this.shapeAttribute.getFillColor();
+    }
+
+    public void setGradient(GradientPaint p) {
+        this.shapeAttribute.setGradient(p);
+    }
+
+    public void setIsGradient(boolean isGradient) {
+        this.shapeAttribute.setIsGradient(isGradient);
     }
 
     /**
@@ -262,7 +268,9 @@ public class ImagePanel extends javax.swing.JPanel {
         currentShape.setStrokeWidth(this.shapeAttribute.getStrokeWidth());
         currentShape.setPaintColor(this.shapeAttribute.getPaintColor());
         currentShape.setFilled(this.shapeAttribute.isFilled());
+        currentShape.setIsGradient(this.shapeAttribute.isGradient());
         currentShape.setFillColor(this.shapeAttribute.getFillColor());
+        currentShape.setGradient(this.shapeAttribute.getGradient());
         currentShape.setContinuous(this.shapeAttribute.isCont());
 
         return currentShape;
