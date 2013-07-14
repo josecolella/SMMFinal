@@ -393,6 +393,7 @@ public class ImagePanel extends javax.swing.JPanel {
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         if (!isEditable) {
             updateShape(p, evt.getPoint());
+
         }
         this.repaint();
     }//GEN-LAST:event_formMouseReleased

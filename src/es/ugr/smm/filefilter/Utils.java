@@ -1,4 +1,4 @@
-package es.ugr.smm.mainFrame;
+package es.ugr.smm.filefilter;
 
 import java.io.File;
 

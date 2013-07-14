@@ -2,17 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.ugr.smm.mainFrame;
+package es.ugr.smm.filefilter;
+
+import es.ugr.smm.filefilter.ImageFileFilter;
 
 /**
  *
  * @author Jose
  */
-public class JPEGImageFilter extends ImageFileFilter{
+public class PNGImageFilter extends ImageFileFilter{
 
     @Override
     public String getDescription() {
-        return "JPEG files (*.jpeg,*.jpg)";
+        return "PNG files (*.png)";
     }
     
     

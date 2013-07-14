@@ -4,6 +4,13 @@
  */
 package es.ugr.smm.mainFrame;
 
+import es.ugr.smm.filefilter.Utils;
+import es.ugr.smm.filefilter.WAVSoundFilter;
+import es.ugr.smm.filefilter.PNGImageFilter;
+import es.ugr.smm.filefilter.MP3SoundFilter;
+import es.ugr.smm.filefilter.JPEGImageFilter;
+import es.ugr.smm.filefilter.GIFImageFilter;
+import es.ugr.smm.filefilter.AVIVideoFilter;
 import es.ugr.smm.internalWindow.VentanaInternaCamara;
 import es.ugr.smm.internalWindow.VentanaInternaGrabacion;
 import es.ugr.smm.internalWindow.VentanaInternaJMFPlayer;
@@ -39,6 +46,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  *
@@ -231,7 +239,9 @@ public class jMainFrame extends javax.swing.JFrame {
         jStrokeSpinnerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Grosor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP));
 
         jStrokeSpinner.setToolTipText("Grosor");
+        jStrokeSpinner.setName(""); // NOI18N
         jStrokeSpinner.setPreferredSize(new java.awt.Dimension(60, 45));
+        jStrokeSpinner.setRequestFocusEnabled(false);
         jStrokeSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jStrokeSpinnerStateChanged(evt);
@@ -695,7 +705,8 @@ public class jMainFrame extends javax.swing.JFrame {
         jGradientPanel.add(jGradientDirectionPanel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1050, 780));
+        setMinimumSize(new java.awt.Dimension(1300, 850));
+        setPreferredSize(new java.awt.Dimension(1300, 790));
 
         jCentralPanel.setLayout(new java.awt.BorderLayout());
 
@@ -1085,29 +1096,33 @@ public class jMainFrame extends javax.swing.JFrame {
         dlg.addChoosableFileFilter(new PNGImageFilter());
         int resp = dlg.showSaveDialog(this);
         if (resp == JFileChooser.APPROVE_OPTION) {
-            String filename = dlg.getSelectedFile().getName();
-            String ext = "";
-            String extension = dlg.getFileFilter().getDescription();
-
-            if (extension.equals("*.jpeg,*.jpg")) {
-                ext = ".jpg";
-            }
-            if (extension.equals("*.png,*.PNG")) {
-                ext = ".png";
-            }
-            if (extension.equals("*.gif,*.GIF")) {
-                ext = ".gif";
-            }
-
-
-
             try {
                 File f = dlg.getSelectedFile();
+                File newFile = null;
+                String ext;
+                boolean valid = false;
+                if (Utils.getExtension(f) == null) {
+                    newFile = new File(f.getAbsolutePath() + ".jpeg");
+                    ext = "jpg";
+                } else if (!(Utils.getExtension(f).equals("jpeg") || Utils.getExtension(f).equals("jpg") || Utils.getExtension(f).equals("gif") || Utils.getExtension(f).equals("png"))) {
+                    String fileName = FilenameUtils.getBaseName(f.getName());
+                    newFile = new File(fileName + ".jpeg");
+                    ext = "jpg";
+                } else {
+                    ext = Utils.getExtension(f);
+                    valid = true;
+                }
                 //El siguiente codigo permite conocer  la ventana activa
                 jImageInternalWindow vi = (jImageInternalWindow) jDesktopPane.getSelectedFrame();
                 BufferedImage img = vi.getImagePanel().getImage();
-                ImageIO.write(img, "jpg", f);
-                vi.setTitle(filename);
+                if (valid) {
+                    ImageIO.write(img, ext, f);
+                    vi.setTitle(f.getName());
+                }
+                else{
+                    ImageIO.write(img, ext, newFile);
+                    vi.setTitle(newFile.getName());
+                }
                 this.validate();
 
             } catch (Exception ex) {
@@ -1136,7 +1151,8 @@ public class jMainFrame extends javax.swing.JFrame {
                 }
             }
         } else {
-            jBrightnessSlider.setEnabled(false);
+
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jBrightnessSliderStateChanged
 
@@ -1176,7 +1192,7 @@ public class jMainFrame extends javax.swing.JFrame {
                 }
             }
         } else {
-            jComboBox1.setEnabled(false);
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
@@ -1205,6 +1221,8 @@ public class jMainFrame extends javax.swing.JFrame {
                     }
                 }
             }
+        } else {
+            showErrorNullWindowMessage();
         }
 
     }//GEN-LAST:event_jNormalContrastButtonActionPerformed
@@ -1234,6 +1252,8 @@ public class jMainFrame extends javax.swing.JFrame {
                     }
                 }
             }
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jIlluminationButtonActionPerformed
 
@@ -1261,6 +1281,8 @@ public class jMainFrame extends javax.swing.JFrame {
                     }
                 }
             }
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jDarknessButtonActionPerformed
 
@@ -1282,6 +1304,8 @@ public class jMainFrame extends javax.swing.JFrame {
                     System.err.println(e.getLocalizedMessage());
                 }
             }
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jRotationSliderStateChanged
 
@@ -1319,6 +1343,8 @@ public class jMainFrame extends javax.swing.JFrame {
                     }
                 }
             }
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jNinetyDegRotationButtonActionPerformed
 
@@ -1342,6 +1368,8 @@ public class jMainFrame extends javax.swing.JFrame {
                     }
                 }
             }
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jOneEightyDegRotationButtonActionPerformed
 
@@ -1365,6 +1393,8 @@ public class jMainFrame extends javax.swing.JFrame {
                     }
                 }
             }
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jTwoSeventyDegRotationButtonActionPerformed
 
@@ -1386,6 +1416,8 @@ public class jMainFrame extends javax.swing.JFrame {
                     }
                 }
             }
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jZoomInButtonActionPerformed
 
@@ -1407,6 +1439,8 @@ public class jMainFrame extends javax.swing.JFrame {
                     }
                 }
             }
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jZoomOutButtonActionPerformed
 
@@ -1421,14 +1455,12 @@ public class jMainFrame extends javax.swing.JFrame {
                     shape.setStrokeWidth((Integer) jStrokeSpinner.getValue());
                 }
             } else {
+
                 vi.getImagePanel().setStrokeWidth((Integer) jStrokeSpinner.getValue());
             }
             vi.repaint();
         } else {
-            //jStrokeSpinner.setValue(0);
-            JOptionPane.showMessageDialog(null, "Solo podemos cambiar el grosor cuando tenemos presente una ventana interna de Imágenes", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jStrokeSpinnerStateChanged
 
@@ -1470,28 +1502,19 @@ public class jMainFrame extends javax.swing.JFrame {
             if (this.jFillColorButton.isEnabled()) {
                 vi.getImagePanel().setCurrentFillColor(this.jFillColorButton.getBackground());
             }
+            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             if (vi.getImagePanel().isEditable()) {
                 JShape shape = vi.getImagePanel().getSelectedShape();
                 if (shape != null) {
-                    shape.setPaintColor(this.jStrokeColorButton.getBackground());
-                    if (this.jFillColorButton.isEnabled()) {
+                    if (b.getClass() == this.jFillColorButton.getClass()) {
+                        shape.setFilled(true);
+                        shape.setIsGradient(false);
                         shape.setFillColor(this.jFillColorButton.getBackground());
                     }
-                }
-                vi.getImagePanel().setFocusable(true);
-                vi.repaint();
-            } else if (vi.getImagePanel().isFilled()) {
-                JShape shape = vi.getImagePanel().getSelectedShape();
-                if (shape != null) {
                     shape.setPaintColor(this.jStrokeColorButton.getBackground());
-                    if (this.jFillColorButton.isEnabled()) {
-                        shape.setFillColor(this.jFillColorButton.getBackground());
-                    }
+                    vi.repaint();
                 }
-                vi.getImagePanel().setFocusable(true);
-                vi.repaint();
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Solo se puede seleccionar el color para ventanas de Imágenes", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -1539,11 +1562,26 @@ public class jMainFrame extends javax.swing.JFrame {
 
     private void jRecordMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRecordMenuItemActionPerformed
         JFileChooser dlg = new JFileChooser();
+        dlg.addChoosableFileFilter(new WAVSoundFilter());
         int resp = dlg.showSaveDialog(this);
         if (resp == JFileChooser.APPROVE_OPTION) {
+
+
             try {
+                File newFile;
+                VentanaInternaGrabacion vg = null;
                 File f = dlg.getSelectedFile();
-                VentanaInternaGrabacion vg = new VentanaInternaGrabacion(f);
+                if (Utils.getExtension(f) == null) {
+                    newFile = new File(f.getAbsolutePath() + ".wav");
+                    vg = new VentanaInternaGrabacion(newFile);
+                } else if (!Utils.getExtension(f).equals("wav")) {
+                    String fileName = FilenameUtils.getBaseName(f.getName());
+                    newFile = new File(fileName + ".wav");
+                    vg = new VentanaInternaGrabacion(newFile);
+                } else {
+                    vg = new VentanaInternaGrabacion(f);
+                }
+
                 jDesktopPane.add(vg);
                 vg.setVisible(true);
             } catch (Exception ex) {
@@ -1618,17 +1656,38 @@ public class jMainFrame extends javax.swing.JFrame {
 
     private void jContinuityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jContinuityButtonActionPerformed
         jImageInternalWindow vi;
+        JShape shape;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             vi.getImagePanel().setIsCont(true);
+            if (vi.getImagePanel().isEditable()) {
+                shape = vi.getImagePanel().getSelectedShape();
+                if (shape != null) {
+                    shape.setContinuous(true);
+                }
+                vi.repaint();
+            }
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jContinuityButtonActionPerformed
 
     private void jDiscontinuityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDiscontinuityButtonActionPerformed
         jImageInternalWindow vi;
+        JShape shape;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             vi.getImagePanel().setIsCont(false);
+            if (vi.getImagePanel().isEditable()) {
+                shape = vi.getImagePanel().getSelectedShape();
+                if (shape != null) {
+                    shape.setContinuous(false);
+                }
+                vi.repaint();
+
+            }
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jDiscontinuityButtonActionPerformed
 
@@ -1638,8 +1697,9 @@ public class jMainFrame extends javax.swing.JFrame {
             this.jFillColorButton.setEnabled(false);
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             vi.getImagePanel().setShapeFilled(false);
-            if(this.jFillColorButton.isEnabled())
+            if (this.jFillColorButton.isEnabled()) {
                 this.jFillColorButton.setEnabled(false);
+            }
             vi.getImagePanel().setIsGradient(false);
             if (vi.getImagePanel().isEditable()) {
                 JShape shape = vi.getImagePanel().getSelectedShape();
@@ -1649,6 +1709,8 @@ public class jMainFrame extends javax.swing.JFrame {
                     vi.repaint();
                 }
             }
+        } else {
+            showErrorNullWindowMessage();
         }
 
     }//GEN-LAST:event_jNoFillRadioButtonActionPerformed
@@ -1659,12 +1721,17 @@ public class jMainFrame extends javax.swing.JFrame {
             this.jFillColorButton.setEnabled(true);
             this.jFillColorButton.setFocusable(true);
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-            vi.getImagePanel().setShapeFilled(true);
             if (vi.getImagePanel().isGradient()) {
                 vi.getImagePanel().setIsGradient(false);
-            }
 
+            }
+            vi.getImagePanel().setShapeFilled(true);
+
+
+        } else {
+            showErrorNullWindowMessage();
         }
+
     }//GEN-LAST:event_jFillSolidRadioButtonActionPerformed
     private void createColorTab() {
 
@@ -1697,6 +1764,8 @@ public class jMainFrame extends javax.swing.JFrame {
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
             createColorTab();
+        } else {
+            showErrorNullWindowMessage();
         }
     }//GEN-LAST:event_jStrokeColorButtonActionPerformed
 
@@ -1713,14 +1782,7 @@ public class jMainFrame extends javax.swing.JFrame {
         jImageInternalWindow vi;
         if (this.jDesktopPane.getSelectedFrame() instanceof jImageInternalWindow) {
             createFillTab();
-            vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
-            if (vi.getImagePanel().isEditable()) {
-                JShape shape = vi.getImagePanel().getSelectedShape();
-                if (shape != null) {
-                    shape.setFilled(true);
-                    shape.setIsGradient(false);
-                }
-            }
+
         }
     }//GEN-LAST:event_jFillColorButtonActionPerformed
 
@@ -1771,15 +1833,29 @@ public class jMainFrame extends javax.swing.JFrame {
             }
             vi.getImagePanel().setIsGradient(true);
 
+        } else {
+            showErrorNullWindowMessage();
         }
-
     }//GEN-LAST:event_jGradientFillRadioButtonActionPerformed
 
+    private void showErrorNullWindowMessage() {
+        JOptionPane.showMessageDialog(null, "Esta opción solo se puede aplicar a una ventana de imágenes", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     private void jFrontGradientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFrontGradientButtonActionPerformed
         Color c = JColorChooser.showDialog(this, "Elegir el color frontal del relleno degradado", Color.BLACK);
         this.jFrontGradientButton.setBackground(c);
         this.jTabbedPane.setSelectedComponent(jGradientPanel);
         this.jTabbedPane.validate();
+//       vi = (jImageInternalWindow) this.jDesktopPane.getSelectedFrame();
+//            if (vi.getImagePanel().isEditable()) {
+//                JShape shape = vi.getImagePanel().getSelectedShape();
+//                if (shape != null) {
+//                    shape.setFilled(true);
+//                    shape.setIsGradient(false);
+//                    shape.setFillColor(this.jFillColorButton.getBackground());
+//                    vi.repaint();
+//                }
+//            }
     }//GEN-LAST:event_jFrontGradientButtonActionPerformed
 
     private void jBackGradientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackGradientButtonActionPerformed
@@ -1789,6 +1865,7 @@ public class jMainFrame extends javax.swing.JFrame {
         this.jTabbedPane.validate();
     }//GEN-LAST:event_jBackGradientButtonActionPerformed
 
+    //metodo para verificar si se ha escogido el mismo color frontal y de fondo
     private boolean isFrontBackGradientEqual() {
         boolean isEqual = false;
         if (this.jFrontGradientButton.getBackground() == this.jBackGradientButton.getBackground()) {
@@ -1806,9 +1883,9 @@ public class jMainFrame extends javax.swing.JFrame {
                 JShape shape = vi.getImagePanel().getSelectedShape();
                 if (shape != null) {
                     shape.setFilled(false);
+                    shape.setIsGradient(true);
                     shape.setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), vi.getImagePanel().getWidth(), 0, this.jBackGradientButton.getBackground()));
                     vi.repaint();
-                    System.out.println("Hello");
                 }
             } else {
                 vi.getImagePanel().setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), vi.getImagePanel().getWidth(), 0, this.jBackGradientButton.getBackground()));
@@ -1824,9 +1901,10 @@ public class jMainFrame extends javax.swing.JFrame {
                 JShape shape = vi.getImagePanel().getSelectedShape();
                 if (shape != null) {
                     shape.setFilled(false);
+                    shape.setIsGradient(true);
                     shape.setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), 0, vi.getImagePanel().getHeight(), this.jBackGradientButton.getBackground()));
-                    
-                    vi.getImagePanel().repaint();
+                    vi.repaint();
+
                 }
             }
             vi.getImagePanel().setGradient(new GradientPaint(0, 0, this.jFrontGradientButton.getBackground(), 0, vi.getImagePanel().getHeight(), this.jBackGradientButton.getBackground()));

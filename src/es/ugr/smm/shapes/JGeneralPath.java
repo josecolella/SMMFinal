@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
@@ -124,7 +125,9 @@ public class JGeneralPath extends GeneralPath.Float implements JShape {
 
     @Override
     public void setLocation(Point2D pos) {
-        //this.lineTo(pos.getX(),pos.getY());
+        Rectangle2D v = this.getBounds2D();
+        v.setFrame(pos.getX(), pos.getY(), v.getWidth(), v.getHeight());
+       
     }
 
     @Override

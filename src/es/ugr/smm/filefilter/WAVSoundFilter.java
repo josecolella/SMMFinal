@@ -2,20 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.ugr.smm.mainFrame;
-
-import javax.swing.filechooser.FileFilter;
+package es.ugr.smm.filefilter;
 
 /**
  *
  * @author Jose
  */
-class AVIVideoFilter extends VideoFileFilter {
-
+public class WAVSoundFilter extends SoundFileFilter {
 
     @Override
     public String getDescription() {
-         return "AVI files (*.avi)";
+        return "WAV files (*.wav)";
     }
-    
 }

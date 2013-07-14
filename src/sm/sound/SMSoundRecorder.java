@@ -85,6 +85,7 @@ public class SMSoundRecorder implements SMRecorder {
         // Comienza la grabación
         targetDataLine.start();
         try {
+            
             AudioSystem.write(audioInputStream,targetType,soundFile);
         }
         catch (Exception e){

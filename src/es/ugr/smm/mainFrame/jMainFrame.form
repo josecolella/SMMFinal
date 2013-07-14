@@ -156,9 +156,11 @@
                 <Component class="javax.swing.JSpinner" name="jStrokeSpinner">
                   <Properties>
                     <Property name="toolTipText" type="java.lang.String" value="Grosor"/>
+                    <Property name="name" type="java.lang.String" value="" noResource="true"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[60, 45]"/>
                     </Property>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jStrokeSpinnerStateChanged"/>
@@ -1114,7 +1116,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1050, 780]"/>
+      <Dimension value="[1300, 850]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
