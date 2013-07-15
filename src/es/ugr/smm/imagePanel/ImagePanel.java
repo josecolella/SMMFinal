@@ -103,7 +103,7 @@ public class ImagePanel extends javax.swing.JPanel {
     //Inicializa los atributos del panel de imágenes
     private void initializePanelAttributes() {
         defaultImage = new BufferedImage(this.height, this.width, BufferedImage.TYPE_INT_RGB);
-        jShapeArray = new ArrayList();
+        jShapeArray = new ArrayList<JShape>();
         currentDrawingShape = Shapes.POINT;
         currentShape = new JPoint(new Point2D.Float(-1, -1), new Point2D.Float(-1, -1));
         currentEditShape = null;
