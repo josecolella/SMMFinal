@@ -20,34 +20,35 @@ package es.ugr.smm.shapes;
  */
 public enum Shapes {
     
-    POINT{
-        @Override
-        public String toString() {
-            return "Punto";
-        }
-    },
-    LINE{
-        @Override
-        public String toString() {
-            return "Linea";
-        }
-    },
-    RECTANGLE{
-        @Override
-        public String toString() {
-            return "Rectángulo";
-        }
-    },
-    ELLIPSE{
-        @Override
-        public String toString() {
-            return "Elipse";
-        }
-    },
-    FREEFORM{
-        @Override
-        public String toString() {
-            return "Trazo Libre";
-        }
-    },
+      POINT, LINE, RECTANGLE, ELLIPSE, FREEFORM
+//    POINT{
+//        @Override
+//        public String toString() {
+//            return "Punto";
+//        }
+//    },
+//    LINE{
+//        @Override
+//        public String toString() {
+//            return "Linea";
+//        }
+//    },
+//    RECTANGLE{
+//        @Override
+//        public String toString() {
+//            return "Rectángulo";
+//        }
+//    },
+//    ELLIPSE{
+//        @Override
+//        public String toString() {
+//            return "Elipse";
+//        }
+//    },
+//    FREEFORM{
+//        @Override
+//        public String toString() {
+//            return "Trazo Libre";
+//        }
+//    },
 }

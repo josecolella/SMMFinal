@@ -13,9 +13,11 @@
             </test-roots>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>agrerga</word>
             <word>atributos</word>
             <word>dibujo</word>
             <word>funcionalidades</word>
+            <word>validos</word>
         </spellchecker-wordlist>
     </configuration>
 </project>
