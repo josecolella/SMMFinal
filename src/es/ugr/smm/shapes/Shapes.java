@@ -5,8 +5,18 @@
 package es.ugr.smm.shapes;
 
 /**
- *
- * @author Jose
+ * El enum Shapes representa un tipo especial 
+ * que denota las formas dispondibles de dibujo
+ * como constantes predefinidas. 
+ * Se ha sobrecargado <code>toString()</code> 
+ * en todos los contantes para que declare la forma
+ * actual.
+ * 
+ * Este enum es usado para denotar la forma actual 
+ * {@link JShape} de dibujo
+ * 
+ * @author Jose Colella
+ * @version 1.0
  */
 public enum Shapes {
     

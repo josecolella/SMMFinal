@@ -9,8 +9,19 @@ import java.awt.GradientPaint;
 import java.awt.Stroke;
 
 /**
- *
- * @author Jose
+ * ShapeAttribute representa la encapsulación de los atributos 
+ * de dibujo que contiene un {@link JShape}. Ofrece metodos setters 
+ * y getters para dichos attributos. 
+ * 
+ * Si hay que agregar o cambiar atributos de dibujo, cambiando esta clase,
+ * todas las correpondientes clases que usan ShapeAttribute como atributo 
+ * estan automaticamente afectadas.
+ * 
+ * @author Jose Colella
+ * @version 1.0
+ * @see Color
+ * @see Stroke
+ * @see GradientPaint
  */
 public class ShapeAttribute {
 
@@ -23,6 +34,10 @@ public class ShapeAttribute {
     private boolean isCont;
     private boolean isGradient;
 
+    /**
+     * Instancia un ShapeAttribute donde 
+     * todos los atributos de dibujo estan inicializados
+     */
     public ShapeAttribute() {
         initializeAttributes();
     }
@@ -37,112 +52,139 @@ public class ShapeAttribute {
     }
 
     /**
-     * @return the paintColor
+     * Devuelve el color de trazo
+     * @return color de trazo
      */
     public Color getPaintColor() {
         return paintColor;
     }
 
     /**
-     * @param paintColor the paintColor to set
+     * Asigna el color del trazo
+     * @param paintColor El color de trazo
      */
     public void setPaintColor(Color paintColor) {
         this.paintColor = paintColor;
     }
 
     /**
-     * @return the fillColor
+     * Devuelve el color del relleno
+     * 
+     * @return El color del relleno
      */
     public Color getFillColor() {
         return fillColor;
     }
 
     /**
-     * @param fillColor the fillColor to set
+     * Asigna el color de relleno
+     * @param fillColor El color de relleno
      */
     public void setFillColor(Color fillColor) {
         this.fillColor = fillColor;
     }
 
     /**
-     * @return the shapeStroke
+     * Devielve el trazo
+     * 
+     * @return El trazo
      */
     public Stroke getShapeStroke() {
         return shapeStroke;
     }
 
     /**
-     * @param shapeStroke the shapeStroke to set
+     * Asigna el trazo 
+     * 
+     * @param shapeStroke El trazo a asignar
      */
     public void setShapeStroke(Stroke shapeStroke) {
         this.shapeStroke = shapeStroke;
     }
 
     /**
-     * @return the gradient
+     * Devuelve el relleno degradado
+     * @return Relleno degradado
      */
     public GradientPaint getGradient() {
         return gradient;
     }
 
     /**
-     * @param gradient the gradient to set
+     * Asigna el relleno degradado 
+     * 
+     * @param gradient El relleno degradado a asignar
      */
     public void setGradient(GradientPaint gradient) {
         this.gradient = gradient;
     }
 
     /**
-     * @return the strokeWidth
+     * Devuelve el grosor del trazo
+     * 
+     * @return float que representa el grosor del trazo
      */
     public float getStrokeWidth() {
         return strokeWidth;
     }
 
     /**
-     * @param strokeWidth the strokeWidth to set
+     * Asigna el grosor 
+     * 
+     * @param strokeWidth El grosor a asignar
      */
     public void setStrokeWidth(float strokeWidth) {
         this.strokeWidth = strokeWidth;
     }
 
     /**
-     * @return the isFilled
+     * Devuelve si la forma esta rellena con un color solido
+     * @return true si la forma esta rellena
+     * 
      */
     public boolean isFilled() {
         return isFilled;
     }
 
     /**
-     * @param isFilled the isFilled to set
+     * Asigna si la forma esta rellena con color solido
+     * 
+     * @param isFilled booleano que denota si la forma esta rellena
      */
     public void setFilled(boolean isFilled) {
         this.isFilled = isFilled;
     }
 
     /**
-     * @return the isGradient
+     * Devuelve si la forma tiene un relleno degradado
+     * 
+     * @return true si tiene un relleno degradado
      */
     public boolean isGradient() {
         return isGradient;
     }
 
     /**
-     * @param isGradient the isGradient to set
+     * Asigna si la forma tiene el relleno degradado 
+     * @param isGradient booleano que denota si tiene relleno degradado 
      */
     public void setIsGradient(boolean isGradient) {
         this.isGradient = isGradient;
     }
 
     /**
-     * @return the isCont
+     * Devuelve si la forma es continua
+     * 
+     * @return true si la forma es continua
      */
     public boolean isCont() {
         return isCont;
     }
 
     /**
-     * @param isCont the isCont to set
+     * Asigna si la forma es continua
+     * 
+     * @param isCont booleano que denota si la forma es continua
      */
     public void setCont(boolean isCont) {
         this.isCont = isCont;
