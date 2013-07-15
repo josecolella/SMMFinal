@@ -100,6 +100,7 @@ public class ImagePanel extends javax.swing.JPanel {
 
     }
 
+    //Inicializa los atributos del panel de imágenes
     private void initializePanelAttributes() {
         defaultImage = new BufferedImage(this.height, this.width, BufferedImage.TYPE_INT_RGB);
         jShapeArray = new ArrayList();
@@ -109,6 +110,11 @@ public class ImagePanel extends javax.swing.JPanel {
         isEditable = false;
     }
 
+    /**
+     * Devuelve la forma de dibujo {@link JShape}
+     * que ha sido seleccionado 
+     * @return JShape la forma que ha sido seleccionada
+     */
     public JShape getSelectedShape() {
         if (this.currentEditShape != null) {
             return this.currentEditShape;
@@ -116,8 +122,15 @@ public class ImagePanel extends javax.swing.JPanel {
         return null;
     }
 
-    //Devuelve la forma que esta contenida en el {@link Point2D} pasado
-    //parametro
+   /**
+    * 
+    * Devuelve la forma de dibujo que esta contenida
+    * dentro del punto pasado como parametro
+    * 
+    * @param p Punto el cual analizamos a ver si la forma esta contenida
+    * @return JShape si el punto esta contenido en la forma
+    *         <code>null</code> si no hay forma de dibujo contenida
+    */
     public JShape getSelectedShape(Point2D p) {
         for (JShape s : jShapeArray) {
             if (s.isContained(p)) {
@@ -127,7 +140,11 @@ public class ImagePanel extends javax.swing.JPanel {
         }
         return null;
     }
-
+    
+    /**
+     * Devuelve el punto inicial de la forma
+     * @return Punto inicial de la forma de dibujo
+     */
     public Point2D getPoint() {
         return this.p;
     }
@@ -135,7 +152,7 @@ public class ImagePanel extends javax.swing.JPanel {
     /**
      * Asigna el color de la forma {@link JShape} actual
      *
-     * @param color El color que caracteriza la forma actual
+     * @param color El color del panel
      * @see Color
      * @see JShape
      */
@@ -144,30 +161,51 @@ public class ImagePanel extends javax.swing.JPanel {
     }
 
     /**
-     * Devuelve el color de la forma actual
+     * Devuelve el color del panel
      *
-     * @return el Color de la forma {@link JShape}
+     * @return el Color del panel
      */
     public Color getCurrentShapeColor() {
         return this.shapeAttribute.getPaintColor();
     }
 
+    /**
+     * Asigna el color del relleno del panel
+     * 
+     * @param color Color del panel
+     */
     public void setCurrentFillColor(Color color) {
         this.shapeAttribute.setFillColor(color);
     }
 
+    /**
+     * Devuelve el color del relleno del panel
+     * @return Color del relleno del panel
+     */
     public Color getCurrentFillColor() {
         return this.shapeAttribute.getFillColor();
     }
 
+    /**
+     * Asigna el relleno degradado del panel
+     * @param p El relleno degradado a asignar
+     */
     public void setGradient(GradientPaint p) {
         this.shapeAttribute.setGradient(p);
     }
 
+    /**
+     * Devuelve si el panel dibujará con relleno degradado
+     * @param isGradient booleano que determina si el panel dibujará con relleno degradado
+     */
     public void setIsGradient(boolean isGradient) {
         this.shapeAttribute.setIsGradient(isGradient);
     }
 
+    /**
+     * Devuelve si el panel dibujará con relleno degradado
+     * @return true si esta presente el relleno degradado
+     */
     public boolean isGradient() {
         return this.shapeAttribute.isGradient();
     }
@@ -203,6 +241,10 @@ public class ImagePanel extends javax.swing.JPanel {
         this.isEditable = isEdit;
     }
 
+    /**
+     * Devuelve si el panel y las correspondientes figuras son editables
+     * @return true si son editables
+     */
     public boolean isEditable() {
         return this.isEditable;
     }
@@ -216,6 +258,11 @@ public class ImagePanel extends javax.swing.JPanel {
         this.shapeAttribute.setFilled(isShapeFilled);
     }
 
+    /**
+     * Devuelve un booleano que denota si panel dibuja con relleno 
+     * de color solido
+     * @return true si es relleno solido
+     */
     public boolean isFilled() {
         return this.shapeAttribute.isFilled();
     }
@@ -271,10 +318,15 @@ public class ImagePanel extends javax.swing.JPanel {
         return this.currentDrawingShape.toString();
     }
 
-    public JShape getCurrentShape() {
-        return this.currentShape;
-    }
-
+    
+    /**
+     * Crea la forma <tt>JShape</tt> basada en el <tt>Shapes</tt> actual
+     * que selecciona el usuario usando eventos. 
+     * 
+     * @param punto1 Punto inicial de la forma
+     * @param punto2 Punto final de la forma
+     * @return <tt>JShape</tt> la forma actual de dibujo
+     */
     public JShape createShape(Point2D punto1, Point2D punto2) {
         if (this.currentDrawingShape == Shapes.POINT) {
             currentShape = new JPoint(punto1, punto2);
@@ -303,10 +355,20 @@ public class ImagePanel extends javax.swing.JPanel {
         return currentShape;
     }
 
+    /**
+     * Configuración final de la forma a dibujar.
+     * Este metodo esta ligado al evento de MouseReleased
+     * @param p1 Punto inicial
+     * @param p2 Punto final
+     */
     public void updateShape(Point2D p1, Point2D p2) {
         currentShape.update(p1, p2);
     }
 
+    /**
+     * Pinta la forma actual con sus correspondientes caracteristicas de dibujo
+     * @param g El graphics que pinta las formas de dibujo del panel
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -375,6 +437,7 @@ public class ImagePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    //Evento cuando el raton es pulsado
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         p = evt.getPoint();
         if (isEditable) {
@@ -390,6 +453,7 @@ public class ImagePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_formMousePressed
 
+    //Evento cuando el raton se suelta
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         if (!isEditable) {
             updateShape(p, evt.getPoint());
@@ -398,6 +462,7 @@ public class ImagePanel extends javax.swing.JPanel {
         this.repaint();
     }//GEN-LAST:event_formMouseReleased
 
+    //Evento cuando el boton se arrastra
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         if (isEditable) {
             try {
@@ -411,6 +476,7 @@ public class ImagePanel extends javax.swing.JPanel {
         this.repaint();
     }//GEN-LAST:event_formMouseDragged
 
+    //Evento cuando se hace click con el raton
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         if (isEditable) {
             currentShape = this.getSelectedShape(evt.getPoint());

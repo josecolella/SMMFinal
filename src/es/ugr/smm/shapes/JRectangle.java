@@ -81,10 +81,10 @@ public class JRectangle extends Rectangle2D.Float implements JShape {
         this.shapeAttribute.setFillColor(color);
     }
 
-    /**
+  /**
      * Devuelve el color de relleno del rectangulo actual
      * @return El color del relleno
-     */
+     */  
     @Override
     public Color getFillColor() {
         return this.shapeAttribute.getFillColor();

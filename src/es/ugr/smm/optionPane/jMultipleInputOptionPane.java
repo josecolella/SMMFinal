@@ -7,8 +7,12 @@ package es.ugr.smm.optionPane;
 import javax.swing.*;
 
 /**
- *
- * @author Jose
+ * El jMultipleInputOptionPane representa un JOptionPane
+ * que contiene dos campos para insertar la anchura y altura 
+ * de la ventana de imágenes {@link JOptionPane}
+ * 
+ * @author Jose Colella
+ * @version 1.0
  */
 public class jMultipleInputOptionPane {
 
@@ -22,6 +26,11 @@ public class jMultipleInputOptionPane {
     private Integer width;
     private boolean isCancelled;
 
+    /**
+     * Construye un panel en cual estan presentes dos
+     * campos de texto que son equivalentes a la altura y anchura
+     * de la ventana de imágenes
+     */
     public jMultipleInputOptionPane() {
         this.height = 0;
         this.width = 0;
@@ -53,15 +62,28 @@ public class jMultipleInputOptionPane {
         }
 
     }
-
+    
+    /**
+     * Devuelve la anchura de la ventana de imágenes
+     * @return Integer La anchura
+     * 
+     */
     public Integer getWidth() {
         return this.width;
     }
 
+    /**
+     * Devuelve la altura de la ventana de imágenes
+     * @return Integer la altura
+     */
     public Integer getHeight() {
         return this.height;
     }
 
+    /**
+     * Devuelve si se ha seleccionado la opción de cancelar
+     * @return true si se ha seleccionado el boton de cancelar
+     */
     public boolean isCancelled() {
         return isCancelled;
     }
