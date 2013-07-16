@@ -44,7 +44,7 @@ public class ShapeAttribute {
 
     private void initializeAttributes() {
         this.paintColor = Color.BLACK;
-        this.fillColor = Color.BLACK;
+        this.fillColor = null;
         this.strokeWidth = 1.0F;
         this.isFilled = false;
         this.isCont = true;
