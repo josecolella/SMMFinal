@@ -1506,7 +1506,7 @@ public class jMainFrame extends javax.swing.JFrame {
             if (vi.getImagePanel().isEditable()) {
                 JShape shape = vi.getImagePanel().getSelectedShape();
                 if (shape != null) {
-                    if (b.getClass() == this.jFillColorButton.getClass()) {
+                    if (b.getClass() == this.jFillColorButton.getClass() && this.jFillColorButton.isEnabled()) {
                         shape.setFilled(true);
                         shape.setIsGradient(false);
                         shape.setFillColor(this.jFillColorButton.getBackground());
